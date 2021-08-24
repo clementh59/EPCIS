@@ -298,7 +298,10 @@
             ]
         },
         "eventID": "@id",
-        "creationDate": "dcterms:created",
+        "creationDate": {
+            "@id": "dcterms:created",
+            "@type": "xsd:dateTimeStamp"
+        },
         "schemaVersion": "owl:versionInfo",
         "ilmd": {
             "@id": "epcis:ilmd"
