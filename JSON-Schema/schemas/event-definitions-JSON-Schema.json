@@ -334,6 +334,7 @@
                     "type": "string",
                     "enum": [
                         "@context",
+                        "type",
                         "eventTime",
                         "recordTime",
                         "eventTimeZoneOffset",

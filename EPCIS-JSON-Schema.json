@@ -691,6 +691,7 @@
           "type": "string",
           "enum": [
             "@context",
+            "type",
             "eventTime",
             "recordTime",
             "eventTimeZoneOffset",
@@ -968,7 +969,31 @@
           "required": [
             "type",
             "action"
-          ]
+          ],
+          "propertyNames": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/common-event-properties"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "epcList",
+                  "quantityList",
+                  "bizStep",
+                  "disposition",
+                  "persistentDisposition",
+                  "readPoint",
+                  "bizLocation",
+                  "bizTransactionList",
+                  "sourceList",
+                  "destinationList",
+                  "sensorElementList",
+                  "ilmd"
+                ]
+              }
+            ]
+          }
         },
         {
           "anyOf": [
@@ -1468,7 +1493,6 @@
               {
                 "type": "string",
                 "enum": [
-                  "type",
                   "inputEPCList",
                   "inputQuantityList",
                   "outputEPCList",
