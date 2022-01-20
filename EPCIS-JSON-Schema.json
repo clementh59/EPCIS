@@ -1392,7 +1392,32 @@
           "required": [
             "type",
             "action"
-          ]
+          ],
+          "propertyNames": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/common-event-properties"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "parentID",
+                  "childEPCs",
+                  "childQuantityList",
+                  "action",
+                  "bizStep",
+                  "disposition",
+                  "persistentDisposition",
+                  "readPoint",
+                  "bizLocation",
+                  "bizTransactionList",
+                  "sourceList",
+                  "destinationList",
+                  "sensorElementList"
+                ]
+              }
+            ]
+          }
         },
         {
           "anyOf": [
@@ -1443,7 +1468,9 @@
           "properties": {
             "type": {
               "type": "string",
-              "pattern": "^TransactionEvent$"
+              "enum": [
+                "TransactionEvent"
+              ]
             },
             "bizTransactionList": {
               "type": "array",
@@ -1508,7 +1535,32 @@
             "type",
             "bizTransactionList",
             "action"
-          ]
+          ],
+          "propertyNames": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/common-event-properties"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "bizTransactionList",
+                  "parentID",
+                  "epcList",
+                  "quantityList",
+                  "action",
+                  "bizStep",
+                  "disposition",
+                  "persistentDisposition",
+                  "readPoint",
+                  "bizLocation",
+                  "sourceList",
+                  "destinationList",
+                  "sensorElementList"
+                ]
+              }
+            ]
+          }
         },
         {
           "anyOf": [
@@ -1850,7 +1902,32 @@
             "type",
             "action",
             "parentID"
-          ]
+          ],
+          "propertyNames": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/common-event-properties"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "parentID",
+                  "childEPCs",
+                  "childQuantityList",
+                  "action",
+                  "bizStep",
+                  "disposition",
+                  "persistentDisposition",
+                  "readPoint",
+                  "bizLocation",
+                  "bizTransactionList",
+                  "sourceList",
+                  "destinationList",
+                  "sensorElementList"
+                ]
+              }
+            ]
+          }
         },
         {
           "anyOf": [
