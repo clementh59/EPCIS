@@ -4027,26 +4027,42 @@ components:
 
 
     # describe header schema
+    version:
+      type: string
+      pattern: ^\d+(\.\d+)?$
+      
     GS1-EPCIS-Version:
-      description: The EPCIS version.
-      type: string
-      pattern: ^\d+(\.\d+)?$
-      example: "2.0"
+      allOf: 
+        - description: The EPCIS version.
+          example: "2.0"
+        - $ref: '#/components/schemas/version'
     GS1-EPCIS-Min:
-      description: The lowest EPCIS version supported.
-      type: string
-      pattern: ^\d+(\.\d+)?$
-      example: "2.0"
+      allOf: 
+        - description: The lowest EPCIS version supported.
+          example: "1.0"
+        - $ref: '#/components/schemas/version'
     GS1-EPCIS-Max:
-      example: "1.0"
-      description: The highest EPCIS version supported.
-      type: string
-      pattern: ^\d+(\.\d+)?$
+      allOf:
+        - description: The highest EPCIS version supported.
+          example: "2.0"
+        - $ref: '#/components/schemas/version'
+
     GS1-CBV-Version:
-      example: '2.0'
-      description: The core business vocabulary version.
-      type: string
-      pattern: ^\d+(\.\d+)?$
+      allOf:
+        - description: The Core Business Vocabulary version.
+          example: "2.0"
+        - $ref: '#/components/schemas/version'
+    GS1-CBV-Min:
+      allOf:
+        - description: The lowest Core Business Vocabulary version supported.
+          example: "1.2"
+        - $ref: '#/components/schemas/version'
+    GS1-CBV-Max:
+      allOf:
+        - description: The highest Core Business Vocabulary version supported.
+          example: "2.0"
+        - $ref: '#/components/schemas/version'
+
     GS1-EPC-Format:
       example: Always_GS1_Digital_Link
       description: |
