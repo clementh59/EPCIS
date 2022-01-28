@@ -44,46 +44,7 @@ paths:
         `OPTIONS` on the root path gives the client an overview of the server's EPCIS-related configurations.
       responses:
         '204':
-          description: Server can comply with the GS1-EPCIS related requirements from the client.
-          headers:
-            Allow:
-              schema:
-                example: OPTIONS
-                type: string
-                default: OPTIONS
-            GS1-EPCIS-Version:
-              $ref: '#/components/headers/GS1-EPCIS-Version'
-            GS1-EPCIS-Min:
-              $ref: '#/components/headers/GS1-EPCIS-Min'
-            GS1-EPCIS-Max:
-              $ref: '#/components/headers/GS1-EPCIS-Max'
-            GS1-CBV-Version:
-              $ref: '#/components/headers/GS1-CBV-Version'
-            GS1-EPC-Format:
-              $ref: '#/components/headers/GS1-EPC-Format'
-            GS1-CBV-XML-Format:
-              $ref: '#/components/headers/GS1-CBV-XML-Format'
-            GS1-Extensions:
-              $ref: '#/components/headers/GS1-Extensions'
-            GS1-Vendor-Version:
-              $ref: '#/components/headers/GS1-Vendor-Version'
-            GS1-EPCIS-Capture-Limit:
-              $ref: '#/components/headers/GS1-EPCIS-Capture-Limit'
-            GS1-EPCIS-Capture-File-Size-Limit:
-              $ref: '#/components/headers/GS1-EPCIS-Capture-File-Size-Limit'
-            GS1-Next-Page-Token-Expires:
-              $ref: '#/components/headers/GS1-Next-Page-Token-Expires'
-            GS1-Query-Min-Record-Time:
-              $ref: '#/components/headers/GS1-Query-Min-Record-Time'
-            GS1-Capture-Error-Behaviour:
-              schema:
-                default: 'rollback'
-                example: 'rollback'
-                oneOf:
-                  - type: string
-                    enum:
-                      - 'rollback | proceed'
-                  - $ref: '#/components/schemas/GS1-Capture-Error-Behaviour'
+          $ref: '#/components/responses/204TopLevelResourcesDiscovery'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -503,7 +464,7 @@ paths:
         versions are used.
       responses:
         '204':
-          $ref: '#/components/responses/204TopLevelResourcesDiscovery'
+          $ref: '#/components/responses/204WriteResourcesDiscovery'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -633,33 +594,7 @@ paths:
         versions are used.
       responses:
         '204':
-          description: |
-            The `OPTIONS` method is used to discover capabilities of individual EPCIS events endpoints. It describes
-            which EPCIS and CBV versions are supported as well as EPCIS and CBV extensions.
-            The list of headers is not exhaustive. It only describes the functionality specific to EPCIS 2.0.
-          headers:
-            Allow:
-              schema:
-                example: OPTIONS, GET
-                type: string
-                default: OPTIONS, GET
-
-            GS1-EPCIS-Version:
-              $ref: '#/components/headers/GS1-EPCIS-Version'
-            GS1-EPCIS-Min:
-              $ref: '#/components/headers/GS1-EPCIS-Min'
-            GS1-EPCIS-Max:
-              $ref: '#/components/headers/GS1-EPCIS-Max'
-            GS1-CBV-Version:
-              $ref: '#/components/headers/GS1-CBV-Version'
-            GS1-EPC-Format:
-              $ref: '#/components/headers/GS1-EPC-Format'
-            GS1-CBV-XML-Format:
-              $ref: '#/components/headers/GS1-CBV-XML-Format'
-            GS1-Extensions:
-              $ref: '#/components/headers/GS1-Extensions'
-            GS1-Vendor-Version:
-              $ref: '#/components/headers/GS1-Vendor-Version'
+          $ref: '#/components/responses/204TopLevelResourcesDiscovery'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -987,33 +922,16 @@ paths:
         of EPCIS and CBV. The `OPTIONS` method allows the client to discover which vocabularies and EPCIS and CBV
         versions are used.
       responses:
-        '204':
-          description: |
-            The `OPTIONS` method is used to discover capabilities for an endpoint specifying an electronic product code. It describes which EPCIS
-            and CBV versions are supported as well as EPCIS and CBV extensions.
-            The list of headers is not exhaustive. It only describes the functionality specific to EPCIS 2.0.
-          headers:
-            Allow:
-              schema:
-                example: OPTIONS, GET
-                type: string
-                default: OPTIONS, GET
-            GS1-EPCIS-Version:
-              $ref: '#/components/headers/GS1-EPCIS-Version'
-            GS1-EPCIS-Min:
-              $ref: '#/components/headers/GS1-EPCIS-Min'
-            GS1-EPCIS-Max:
-              $ref: '#/components/headers/GS1-EPCIS-Max'
-            GS1-CBV-Version:
-              $ref: '#/components/headers/GS1-CBV-Version'
-            GS1-EPC-Format:
-              $ref: '#/components/headers/GS1-EPC-Format'
-            GS1-CBV-XML-Format:
-              $ref: '#/components/headers/GS1-CBV-XML-Format'
-            GS1-Extensions:
-              $ref: '#/components/headers/GS1-Extensions'
-            GS1-Vendor-Version:
-              $ref: '#/components/headers/GS1-Vendor-Version'
+          '204':
+            $ref: '#/components/responses/204TopLevelResourcesDiscovery'
+          '401':
+            $ref: '#/components/responses/401UnauthorizedRequest'
+          '403':
+            $ref: '#/components/responses/403ClientUnauthorized'
+          '406':
+            $ref: '#/components/responses/406NotAcceptable'
+          '500':
+            $ref: '#/components/responses/500ImplementationException'
     get:
       tags:
         - 'Top-level'
@@ -1200,32 +1118,7 @@ paths:
         versions are used.
       responses:
         '204':
-          description: |
-            The `OPTIONS` method is used to discover the capabilities for an endpoint specifying a business step. It describes which EPCIS and CBV
-            versions are supported as well as EPCIS and CBV extensions. The list of headers is not exhaustive. It only
-            describes the functionality specific to EPCIS 2.0.
-          headers:
-            Allow:
-              schema:
-                example: OPTIONS, GET
-                type: string
-                default: OPTIONS, GET
-            GS1-EPCIS-Version:
-              $ref: '#/components/headers/GS1-EPCIS-Version'
-            GS1-EPCIS-Min:
-              $ref: '#/components/headers/GS1-EPCIS-Min'
-            GS1-EPCIS-Max:
-              $ref: '#/components/headers/GS1-EPCIS-Max'
-            GS1-CBV-Version:
-              $ref: '#/components/headers/GS1-CBV-Version'
-            GS1-EPC-Format:
-              $ref: '#/components/headers/GS1-EPC-Format'
-            GS1-CBV-XML-Format:
-              $ref: '#/components/headers/GS1-CBV-XML-Format'
-            GS1-Extensions:
-              $ref: '#/components/headers/GS1-Extensions'
-            GS1-Vendor-Version:
-              $ref: '#/components/headers/GS1-Vendor-Version'
+          $ref: '#/components/responses/204TopLevelResourcesDiscovery'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -1411,32 +1304,7 @@ paths:
         versions are used.
       responses:
         '204':
-          description: |
-            The `OPTIONS` method is used to discover the capabilities of an endpoint that specifies a business location. It describes which EPCIS and
-            CBV versions are supported as well as EPCIS and CBV extensions. The list of headers is not exhaustive.
-            It only describes the functionality specific to EPCIS 2.0.
-          headers:
-            Allow:
-              schema:
-                example: OPTIONS, GET
-                type: string
-                default: OPTIONS, GET
-            GS1-EPCIS-Version:
-              $ref: '#/components/headers/GS1-EPCIS-Version'
-            GS1-EPCIS-Min:
-              $ref: '#/components/headers/GS1-EPCIS-Min'
-            GS1-EPCIS-Max:
-              $ref: '#/components/headers/GS1-EPCIS-Max'
-            GS1-CBV-Version:
-              $ref: '#/components/headers/GS1-CBV-Version'
-            GS1-EPC-Format:
-              $ref: '#/components/headers/GS1-EPC-Format'
-            GS1-CBV-XML-Format:
-              $ref: '#/components/headers/GS1-CBV-XML-Format'
-            GS1-Extensions:
-              $ref: '#/components/headers/GS1-Extensions'
-            GS1-Vendor-Version:
-              $ref: '#/components/headers/GS1-Vendor-Version'
+          $ref: '#/components/responses/204TopLevelResourcesDiscovery'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -1559,32 +1427,7 @@ paths:
         versions are used.
       responses:
         '204':
-          description: |
-            The `OPTIONS` method is used to discover the capabilities of an endpoint that specifies a read point. It describes which EPCIS and CBV
-            versions are supported as well as EPCIS and CBV extensions. The list of headers is not exhaustive. It only
-            describes the functionality specific to EPCIS 2.0.
-          headers:
-            Allow:
-              schema:
-                example: OPTIONS, GET
-                type: string
-                default: OPTIONS, GET
-            GS1-EPCIS-Version:
-              $ref: '#/components/headers/GS1-EPCIS-Version'
-            GS1-EPCIS-Min:
-              $ref: '#/components/headers/GS1-EPCIS-Min'
-            GS1-EPCIS-Max:
-              $ref: '#/components/headers/GS1-EPCIS-Max'
-            GS1-CBV-Version:
-              $ref: '#/components/headers/GS1-CBV-Version'
-            GS1-EPC-Format:
-              $ref: '#/components/headers/GS1-EPC-Format'
-            GS1-CBV-XML-Format:
-              $ref: '#/components/headers/GS1-CBV-XML-Format'
-            GS1-Extensions:
-              $ref: '#/components/headers/GS1-Extensions'
-            GS1-Vendor-Version:
-              $ref: '#/components/headers/GS1-Vendor-Version'
+          $ref: '#/components/responses/204TopLevelResourcesDiscovery'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -1769,32 +1612,7 @@ paths:
         versions are used.
       responses:
         '204':
-          description: |
-            The `OPTIONS` method is used to discover the capabilities of an endpoint that specifies a disposition. It describes which EPCIS and CBV
-            versions are supported as well as EPCIS and CBV extensions. The list of headers is not exhaustive. It only
-            describes the functionality specific to EPCIS 2.0.
-          headers:
-            Allow:
-              schema:
-                example: OPTIONS, GET
-                type: string
-                default: OPTIONS, GET
-            GS1-EPCIS-Version:
-              $ref: '#/components/headers/GS1-EPCIS-Version'
-            GS1-EPCIS-Min:
-              $ref: '#/components/headers/GS1-EPCIS-Min'
-            GS1-EPCIS-Max:
-              $ref: '#/components/headers/GS1-EPCIS-Max'
-            GS1-CBV-Version:
-              $ref: '#/components/headers/GS1-CBV-Version'
-            GS1-EPC-Format:
-              $ref: '#/components/headers/GS1-EPC-Format'
-            GS1-CBV-XML-Format:
-              $ref: '#/components/headers/GS1-CBV-XML-Format'
-            GS1-Extensions:
-              $ref: '#/components/headers/GS1-Extensions'
-            GS1-Vendor-Version:
-              $ref: '#/components/headers/GS1-Vendor-Version'
+          $ref: '#/components/responses/204TopLevelResourcesDiscovery'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -1908,16 +1726,7 @@ paths:
         versions are used.
       responses:
         '204':
-          description: |
-            The `OPTIONS` method is used to discover the capabilities of `/queries` endpoints. It describes which EPCIS and CBV
-            versions are supported as well as EPCIS and CBV extensions.
-            The list of headers is not exhaustive. It only describes the functionality specific to EPCIS 2.0.
-          headers:
-            Allow:
-              schema:
-                example: OPTIONS, GET
-                type: string
-                default: OPTIONS, GET
+          $ref: '#/components/responses/204WriteResourcesDiscovery'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -1969,8 +1778,9 @@ paths:
             existing queries.
           content:
             application/json:
-              example: [{
-                "query": {
+              example: |
+                [{
+                  "query": {
                   "EQ_bizStep": [
                       "shipping",
                       "receiving"
@@ -1978,7 +1788,7 @@ paths:
                   "eventType": ["ObjectEvent"]
                 },
                 "name": "myQuery"
-              }]
+                }]
               schema:
                 description: The query name.
                 type: array
@@ -2130,32 +1940,7 @@ paths:
         versions are used.
       responses:
         '204':
-          description: |
-            The `OPTIONS` method is used to discover the capabilities for `/queries` endpoints. It describes which EPCIS and
-            CBV versions are supported as well as EPCIS and CBV extensions.
-            The list of headers is not exhaustive. It only describes the functionality specific to EPCIS 2.0.
-          headers:
-            Allow:
-              schema:
-                example: OPTIONS, GET, DELETE
-                type: string
-                default: OPTIONS, GET, DELETE
-            GS1-EPCIS-Version:
-              $ref: '#/components/headers/GS1-EPCIS-Version'
-            GS1-EPCIS-Min:
-              $ref: '#/components/headers/GS1-EPCIS-Min'
-            GS1-EPCIS-Max:
-              $ref: '#/components/headers/GS1-EPCIS-Max'
-            GS1-CBV-Version:
-              $ref: '#/components/headers/GS1-CBV-Version'
-            GS1-EPC-Format:
-              $ref: '#/components/headers/GS1-EPC-Format'
-            GS1-CBV-XML-Format:
-              $ref: '#/components/headers/GS1-CBV-XML-Format'
-            GS1-Extensions:
-              $ref: '#/components/headers/GS1-Extensions'
-            GS1-Vendor-Version:
-              $ref: '#/components/headers/GS1-Vendor-Version'
+          $ref: '#/components/responses/204DeleteResourcesDiscovery'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -2671,6 +2456,26 @@ paths:
 
 components:
   responses:
+    204RepositoryOptions:
+      description: |
+        Common headers sent within the response to an OPTIONS method
+      headers:
+        GS1-EPCIS-Min:
+          $ref: '#/components/headers/GS1-EPCIS-Min'
+        GS1-EPCIS-Max:
+          $ref: '#/components/headers/GS1-EPCIS-Max'
+        GS1-CBV-Min:
+          $ref: '#/components/headers/GS1-CBV-Min'
+        GS1-CBV-Max:
+          $ref: '#/components/headers/GS1-CBV-Max'
+        GS1-EPC-Format:
+          $ref: '#/components/headers/GS1-EPC-Format'
+        GS1-CBV-XML-Format:
+          $ref: '#/components/headers/GS1-CBV-XML-Format'
+        GS1-Extensions:
+          $ref: '#/components/headers/GS1-Extensions'
+        GS1-Vendor-Version:
+          $ref: '#/components/headers/GS1-Vendor-Version'
     101WebsocketCreated:
       description: |
         Create a WebSocket connection to subscribe to queries. Upon subscription, the server SHALL send all new events
@@ -2770,18 +2575,79 @@ components:
         CBV extensions. The list of headers is not exhaustive. It only describes the functionality specific to EPCIS 2.0.
       headers:
         Allow:
+          description: Lists the set of methods supported by the resource. 
           schema:
             example: OPTIONS, GET
             type: string
-            default: OPTIONS, GET
-        GS1-EPCIS-Version:
-          $ref: '#/components/headers/GS1-EPCIS-Version'
+            default: 'OPTIONS, GET'
         GS1-EPCIS-Min:
           $ref: '#/components/headers/GS1-EPCIS-Min'
         GS1-EPCIS-Max:
           $ref: '#/components/headers/GS1-EPCIS-Max'
-        GS1-CBV-Version:
-          $ref: '#/components/headers/GS1-CBV-Version'
+        GS1-CBV-Min:
+          $ref: '#/components/headers/GS1-CBV-Min'
+        GS1-CBV-Max:
+          $ref: '#/components/headers/GS1-CBV-Max'
+        GS1-EPC-Format:
+          $ref: '#/components/headers/GS1-EPC-Format'
+        GS1-CBV-XML-Format:
+          $ref: '#/components/headers/GS1-CBV-XML-Format'
+        GS1-Extensions:
+          $ref: '#/components/headers/GS1-Extensions'
+        GS1-Vendor-Version:
+          $ref: '#/components/headers/GS1-Vendor-Version'
+    204WriteResourcesDiscovery:
+      description: |
+        The `OPTIONS` method is used to discover capabilities for EPCIS 2.0 endpoints.
+        It describes which EPCIS and CBV versions are supported and used for the top-level resource as well as EPCIS and
+        CBV extensions. The list of headers is not exhaustive. It only describes the functionality specific to EPCIS 2.0.
+      headers:
+        Allow:
+          description: Lists the set of methods supported by the resource. 
+          schema:
+            example: OPTIONS, GET, POST
+            type: string
+            default: 'OPTIONS, GET, POST'
+        GS1-EPCIS-Min:
+          $ref: '#/components/headers/GS1-EPCIS-Min'
+        GS1-EPCIS-Max:
+          $ref: '#/components/headers/GS1-EPCIS-Max'
+        GS1-CBV-Min:
+          $ref: '#/components/headers/GS1-CBV-Min'
+        GS1-CBV-Max:
+          $ref: '#/components/headers/GS1-CBV-Max'
+        GS1-EPC-Format:
+          $ref: '#/components/headers/GS1-EPC-Format'
+        GS1-CBV-XML-Format:
+          $ref: '#/components/headers/GS1-CBV-XML-Format'
+        GS1-Extensions:
+          $ref: '#/components/headers/GS1-Extensions'
+        GS1-Vendor-Version:
+          $ref: '#/components/headers/GS1-Vendor-Version'
+    204DeleteResourcesDiscovery:
+      description: |
+        The `OPTIONS` method is used to discover capabilities for EPCIS 2.0 endpoints.
+        It describes which EPCIS and CBV versions are supported and used for the top-level resource as well as EPCIS and
+        CBV extensions. The list of headers is not exhaustive. It only describes the functionality specific to EPCIS 2.0.
+      headers:
+        Allow:
+          description: Lists the set of methods supported by the resource. 
+          schema:
+            example: OPTIONS, GET, DELETE
+            type: string
+            default: 'OPTIONS, GET, DELETE'
+        GS1-EPCIS-Min:
+          $ref: '#/components/headers/GS1-EPCIS-Min'
+        GS1-EPCIS-Max:
+          $ref: '#/components/headers/GS1-EPCIS-Max'
+        GS1-CBV-Min:
+          $ref: '#/components/headers/GS1-CBV-Min'
+        GS1-CBV-Max:
+          $ref: '#/components/headers/GS1-CBV-Max'
+        GS1-EPC-Format:
+          $ref: '#/components/headers/GS1-EPC-Format'
+        GS1-CBV-XML-Format:
+          $ref: '#/components/headers/GS1-CBV-XML-Format'
         GS1-Extensions:
           $ref: '#/components/headers/GS1-Extensions'
         GS1-Vendor-Version:
@@ -4033,46 +3899,32 @@ components:
       
     GS1-EPCIS-Version:
       allOf: 
-        - description: The EPCIS version.
-          example: "2.0"
+        - example: "2.0"
         - $ref: '#/components/schemas/version'
     GS1-EPCIS-Min:
       allOf: 
-        - description: The lowest EPCIS version supported.
-          example: "1.0"
+        - example: "1.0"
         - $ref: '#/components/schemas/version'
     GS1-EPCIS-Max:
       allOf:
-        - description: The highest EPCIS version supported.
-          example: "2.0"
+        - example: "2.0"
         - $ref: '#/components/schemas/version'
 
     GS1-CBV-Version:
       allOf:
-        - description: The Core Business Vocabulary version.
-          example: "2.0"
+        - example: "2.0"
         - $ref: '#/components/schemas/version'
     GS1-CBV-Min:
       allOf:
-        - description: The lowest Core Business Vocabulary version supported.
-          example: "1.2"
+        - example: "1.2"
         - $ref: '#/components/schemas/version'
     GS1-CBV-Max:
       allOf:
-        - description: The highest Core Business Vocabulary version supported.
-          example: "2.0"
+        - example: "2.0"
         - $ref: '#/components/schemas/version'
 
     GS1-EPC-Format:
       example: Always_GS1_Digital_Link
-      description: |
-        Request or response header to indicate whether EPCs are expressed as GS1 Digital Link URIs or as EPC URNs.
-        If both server and client set `GS1-EPC-Format` to `No_Preference`, the default value is `Always_GS1_Digital_Link`:
-
-        - No_Preference: The server chooses the representation.
-        - Always_DL: URIs are returned as GS1 Digital Link.
-        - Always_EPC_URN: URIs are returned as URN.
-        - Never_Translates: The original format is kept.
       type: string
       enum:
         - No_Preference
@@ -4081,15 +3933,6 @@ components:
         - Never_Translates
     GS1-CBV-XML-Format:
       example: Always_Web_URI
-      description: |
-        When requesting XML content-type only, users can use this header to request
-        receiving events with CBV values in either URN or Web URI format.
-        This option is not available for JSON/JSON-LD.
-
-        - No_Preference: The server chooses the representation.
-        - Always_Web_URI: CBV values are returned as Web URI.
-        - Always_URN: CBV values are returned as URNs.
-        - Never_Translates: The original format is kept.
       type: string
       enum:
         - No_Preference
@@ -4097,35 +3940,22 @@ components:
         - Always_URN
         - Never_Translates
     GS1-Extensions:
-      description: Specific EPCIS or CBV extensions supported (e.g., for FIT).
       example: {"example-epc-ext": "http://example.com/epcis/"}
       type: object
     GS1-Vendor-Version:
       example: example-version-1.0
-      description: A versioning scheme that can be freely chosen by the vendor.
       anyOf:
         - type: string
         - type: object
     GS1-EPCIS-Capture-Limit:
       example: 500
-      description: The maximum number of EPCIS events that can be captured per call.
       type: string
       pattern: ^(\d+|\*)$
     GS1-EPCIS-Capture-File-Size-Limit:
       example: 1024
-      description: The maximum event document length in octets (8-bit bytes).
       type: string
       pattern: ^(\d+|\*)$
     GS1-Capture-Error-Behaviour:
-      description: |
-        A header to control how the capture interface will behave in case of an error:
-
-        - `rollback`: "All or nothing". Either the capture job is entirely successful or all EPCIS events are rejected.
-        - `proceed`: "Greedy capture". The capture interface tries to capture as many EPCIS events as possible, even if there are errors.
-
-        The default behaviour is `rollback`, as in EPCIS 1.2.
-
-
       example: 'rollback'
       type: string
       default: 'rollback'
@@ -4134,7 +3964,6 @@ components:
         - 'proceed'
     GS1-Next-Page-Token-Expires:
       example: '2017-07-21T17:32:28Z'
-      description: The expiry time for nextPageToken. This header is optional.
       type: string
       format: date-time
 
@@ -4331,44 +4160,85 @@ components:
         $ref: '#/components/schemas/GS1-Extensions'
 
   headers:
-    # response headers from schema
     GS1-EPCIS-Version:
+      description: The EPCIS version.
       schema:
         $ref: '#/components/schemas/GS1-EPCIS-Version'
     GS1-EPCIS-Min:
+      description: The lowest EPCIS version supported.
       schema:
         $ref: '#/components/schemas/GS1-EPCIS-Min'
     GS1-EPCIS-Max:
+      description: The highest EPCIS version supported.
       schema:
         $ref: '#/components/schemas/GS1-EPCIS-Max'
     GS1-CBV-Version:
+      description: The Core Business Vocabulary version.
       schema:
         $ref: '#/components/schemas/GS1-CBV-Version'
+    GS1-CBV-Min:
+      description: The lowest Core Business Vocabulary version supported.
+      schema:
+        $ref: '#/components/schemas/GS1-CBV-Min'
+    GS1-CBV-Max:
+      description: The highest Core Business Vocabulary version supported.
+      schema:
+        $ref: '#/components/schemas/GS1-CBV-Max'
     GS1-EPC-Format:
+      description: |
+        Request or response header to indicate whether EPCs are expressed as GS1 Digital Link URIs or as EPC URNs.
+        If both server and client set `GS1-EPC-Format` to `No_Preference`, the default value is `Always_GS1_Digital_Link`:
+
+        - No_Preference: The server chooses the representation.
+        - Always_DL: URIs are returned as GS1 Digital Link.
+        - Always_EPC_URN: URIs are returned as URN.
+        - Never_Translates: The original format is kept.
       schema:
         $ref: '#/components/schemas/GS1-EPC-Format'
     GS1-CBV-XML-Format:
+      description: |
+        When requesting XML content-type only, users can use this header to request
+        receiving events with CBV values in either URN or Web URI format.
+        This option is not available for JSON/JSON-LD.
+
+        - No_Preference: The server chooses the representation.
+        - Always_Web_URI: CBV values are returned as Web URI.
+        - Always_URN: CBV values are returned as URNs.
+        - Never_Translates: The original format is kept.
       schema:
         $ref: '#/components/schemas/GS1-CBV-XML-Format'
     GS1-Extensions:
+      description: Specific EPCIS or CBV extensions supported (e.g., for FIT).
       schema:
         $ref: '#/components/schemas/GS1-Extensions'
     GS1-Vendor-Version:
+      description: A versioning scheme that can be freely chosen by the vendor.
       schema:
         $ref: '#/components/schemas/GS1-Vendor-Version'
     GS1-EPCIS-Capture-Limit:
+      description: The maximum number of EPCIS events that can be captured per call.
       schema:
         $ref: '#/components/schemas/GS1-EPCIS-Capture-Limit'
     GS1-Query-Min-Record-Time:
+      description: T.B.D. 
       schema:
         $ref: '#/components/schemas/GS1-Query-Min-Record-Time'
     GS1-EPCIS-Capture-File-Size-Limit:
+      description: The maximum event document length in octets (8-bit bytes) for capture operations.
       schema:
         $ref: '#/components/schemas/GS1-EPCIS-Capture-File-Size-Limit'
     GS1-Capture-Error-Behaviour:
+      description: |
+        A header to control how the capture interface will behave in case of an error:
+
+        - `rollback`: "All or nothing". Either the capture job is entirely successful or all EPCIS events are rejected.
+        - `proceed`: "Greedy capture". The capture interface tries to capture as many EPCIS events as possible, even if there are errors.
+
+        The default behaviour is `rollback`, as in EPCIS 1.2.
       schema:
         $ref: '#/components/schemas/GS1-Capture-Error-Behaviour'
     GS1-Next-Page-Token-Expires:
+      description: The expiry time for nextPageToken.
       schema:
         $ref: '#/components/schemas/GS1-Next-Page-Token-Expires'
 
