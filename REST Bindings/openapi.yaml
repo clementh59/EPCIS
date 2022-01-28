@@ -111,13 +111,13 @@ paths:
       
       parameters:
         - $ref: '#/components/parameters/GS1-EPCIS-Version'
-        - $ref: '#/components/parameters/GS1-EPCIS-Min'
-        - $ref: '#/components/parameters/GS1-EPCIS-Max'
         - $ref: '#/components/parameters/GS1-CBV-Version'
         - $ref: '#/components/parameters/GS1-EPC-Format'
         - $ref: '#/components/parameters/GS1-CBV-XML-Format'
         - $ref: '#/components/parameters/GS1-Extensions'
         - name: GS1-Capture-Error-Behaviour
+          description: 
+            $ref: '#/components/headers/GS1-Capture-Error-Behaviour/description'
           in: header
           required: false
           schema:
@@ -152,28 +152,12 @@ paths:
             Successfully received one or more EPCIS events. The request returns a unique
             capture job URL in the Location header.
           headers:
-            GS1-EPCIS-Version:
-              $ref: '#/components/headers/GS1-EPCIS-Version'
-            GS1-EPCIS-Min:
-              $ref: '#/components/headers/GS1-EPCIS-Min'
-            GS1-EPCIS-Max:
-              $ref: '#/components/headers/GS1-EPCIS-Max'
-            GS1-CBV-Version:
-              $ref: '#/components/headers/GS1-CBV-Version'
             GS1-EPC-Format:
               $ref: '#/components/headers/GS1-EPC-Format'
             GS1-CBV-XML-Format:
               $ref: '#/components/headers/GS1-CBV-XML-Format'
             GS1-Extensions:
               $ref: '#/components/headers/GS1-Extensions'
-            GS1-Vendor-Version:
-              $ref: '#/components/headers/GS1-Vendor-Version'
-            GS1-EPCIS-Capture-Limit:
-              $ref: '#/components/headers/GS1-EPCIS-Capture-Limit'
-            GS1-EPCIS-Capture-File-Size-Limit:
-              $ref: '#/components/headers/GS1-EPCIS-Capture-File-Size-Limit'
-            GS1-Capture-Error-Behaviour:
-              $ref: '#/components/headers/GS1-Capture-Error-Behaviour'
             Location:
               example: "https://example.com/capture/id9261379075"
               schema:
@@ -226,16 +210,6 @@ paths:
           headers:
             GS1-EPCIS-Version:
               $ref: '#/components/headers/GS1-EPCIS-Version'
-            GS1-EPCIS-Min:
-              $ref: '#/components/headers/GS1-EPCIS-Min'
-            GS1-EPCIS-Max:
-              $ref: '#/components/headers/GS1-EPCIS-Max'
-            GS1-CBV-Version:
-              $ref: '#/components/headers/GS1-CBV-Version'
-            GS1-EPC-Format:
-              $ref: '#/components/headers/GS1-EPC-Format'
-            GS1-CBV-XML-Format:
-              $ref: '#/components/headers/GS1-CBV-XML-Format'
             GS1-Extensions:
               $ref: '#/components/headers/GS1-Extensions'
             Link:
@@ -352,24 +326,8 @@ paths:
           headers:
             GS1-EPCIS-Version:
               $ref: '#/components/headers/GS1-EPCIS-Version'
-            GS1-EPCIS-Min:
-              $ref: '#/components/headers/GS1-EPCIS-Min'
-            GS1-EPCIS-Max:
-              $ref: '#/components/headers/GS1-EPCIS-Max'
-            GS1-CBV-Version:
-              $ref: '#/components/headers/GS1-CBV-Version'
-            GS1-EPC-Format:
-              $ref: '#/components/headers/GS1-EPC-Format'
-            GS1-CBV-XML-Format:
-              $ref: '#/components/headers/GS1-CBV-XML-Format'
             GS1-Extensions:
               $ref: '#/components/headers/GS1-Extensions'
-            GS1-Vendor-Version:
-              $ref: '#/components/headers/GS1-Vendor-Version'
-            GS1-EPCIS-Capture-Limit:
-              $ref: '#/components/headers/GS1-EPCIS-Capture-Limit'
-            GS1-EPCIS-Capture-File-Size-Limit:
-              $ref: '#/components/headers/GS1-EPCIS-Capture-File-Size-Limit'
             GS1-Capture-Error-Behaviour:
               $ref: '#/components/headers/GS1-Capture-Error-Behaviour'
           description: |
@@ -416,11 +374,15 @@ paths:
       parameters:
         - $ref: '#/components/parameters/NextPageToken'
         - $ref: '#/components/parameters/PerPage'
+        - $ref: '#/components/parameters/GS1-CBV-Version'
+        - $ref: '#/components/parameters/GS1-CBV-Min'
+        - $ref: '#/components/parameters/GS1-CBV-Max'
         - $ref: '#/components/parameters/GS1-EPCIS-Version'
-        - $ref: '#/components/parameters/GS1-Extensions'
         - $ref: '#/components/parameters/GS1-EPCIS-Min'
         - $ref: '#/components/parameters/GS1-EPCIS-Max'
-        - $ref: '#/components/parameters/GS1-CBV-Version'
+        - $ref: '#/components/parameters/GS1-Extensions'
+        - $ref: '#/components/parameters/GS1-EPC-Format'
+        - $ref: '#/components/parameters/GS1-CBV-XML-Format'
       description: |
         This endpoint allows querying EPCIS events that are currently in the repository. 
         Events can be filtered through URL query string parameters as specified by the <a href="https://github.com/gs1/EPCIS/tree/master/REST%20Bindings/query-schema.json">EPCIS Query Language</a>.
@@ -601,6 +563,8 @@ paths:
         - $ref: '#/components/parameters/GS1-EPCIS-Min'
         - $ref: '#/components/parameters/GS1-EPCIS-Max'
         - $ref: '#/components/parameters/GS1-CBV-Version'
+        - $ref: '#/components/parameters/GS1-CBV-Min'
+        - $ref: '#/components/parameters/GS1-CBV-Max'
       description: |
         EPCIS event types specify the schema of an event. This endpoint returns all EPCIS event types that are
         currently present in the repository.
@@ -619,6 +583,7 @@ paths:
   /eventTypes/{eventType}:
     parameters:
       - $ref: '#/components/parameters/EventType'
+      - $ref: '#/components/parameters/GS1-Extensions'
     options:
       tags:
         - 'Discovery'
@@ -645,6 +610,13 @@ paths:
       description: |
         This endpoint returns all sub-resources of an EPCIS event type, which currently is `events`. A server may
         add additional endpoints, for example `schema` to access the EPCIS event type schema.
+      parameters:
+        - $ref: '#/components/parameters/GS1-EPCIS-Version'
+        - $ref: '#/components/parameters/GS1-EPCIS-Min'
+        - $ref: '#/components/parameters/GS1-EPCIS-Max'
+        - $ref: '#/components/parameters/GS1-CBV-Version'
+        - $ref: '#/components/parameters/GS1-CBV-Min'
+        - $ref: '#/components/parameters/GS1-CBV-Max'
       responses:
         '200':
           $ref: '#/components/responses/200TopLevelOrEventTypeSubResource'
@@ -664,12 +636,6 @@ paths:
   /eventTypes/{eventType}/events:
     parameters:
       - $ref: '#/components/parameters/EventType'
-      - $ref: '#/components/parameters/GS1-EPCIS-Version'
-      - $ref: '#/components/parameters/GS1-EPCIS-Min'
-      - $ref: '#/components/parameters/GS1-EPCIS-Max'
-      - $ref: '#/components/parameters/GS1-CBV-Version'
-      - $ref: '#/components/parameters/GS1-EPC-Format'
-      - $ref: '#/components/parameters/GS1-CBV-XML-Format'
       - $ref: '#/components/parameters/GS1-Extensions'
     options:
       tags:
@@ -698,6 +664,14 @@ paths:
       parameters:
         - $ref: '#/components/parameters/PerPage'
         - $ref: '#/components/parameters/NextPageToken'
+        - $ref: '#/components/parameters/GS1-EPCIS-Version'
+        - $ref: '#/components/parameters/GS1-EPCIS-Min'
+        - $ref: '#/components/parameters/GS1-EPCIS-Max'
+        - $ref: '#/components/parameters/GS1-CBV-Version'
+        - $ref: '#/components/parameters/GS1-EPC-Format'
+        - $ref: '#/components/parameters/GS1-CBV-XML-Format'
+        - $ref: '#/components/parameters/GS1-CBV-Min'
+        - $ref: '#/components/parameters/GS1-CBV-Max'
 
       description: |
         This endpoint returns all EPCIS events of a specific EPCIS event type up to the amount defined in `perPage`.
@@ -2395,10 +2369,6 @@ components:
       headers:
         GS1-EPCIS-Version:
           $ref: '#/components/headers/GS1-EPCIS-Version'
-        GS1-EPCIS-Min:
-          $ref: '#/components/headers/GS1-EPCIS-Min'
-        GS1-EPCIS-Max:
-          $ref: '#/components/headers/GS1-EPCIS-Max'
         GS1-CBV-Version:
           $ref: '#/components/headers/GS1-CBV-Version'
         GS1-Extensions:
@@ -4006,36 +3976,64 @@ components:
     GS1-EPCIS-Version:
       in: header
       name: GS1-EPCIS-Version
+      description: 
+        $ref: '#/components/headers/GS1-EPCIS-Version/description'
       schema:
         $ref: '#/components/schemas/GS1-EPCIS-Version'
     GS1-EPCIS-Min:
       in: header
       name: GS1-EPCIS-Min
+      description: 
+        $ref: '#/components/headers/GS1-EPCIS-Min/description'
       schema:
         $ref: '#/components/schemas/GS1-EPCIS-Min'
     GS1-EPCIS-Max:
       in: header
       name: GS1-EPCIS-Max
+      description: 
+        $ref: '#/components/headers/GS1-EPCIS-Max/description'
       schema:
         $ref: '#/components/schemas/GS1-EPCIS-Max'
     GS1-CBV-Version:
       in: header
       name: GS1-CBV-Version
+      description: 
+        $ref: '#/components/headers/GS1-CBV-Version/description'
       schema:
         $ref: '#/components/schemas/GS1-CBV-Version'
+    GS1-CBV-Min:
+      in: header
+      name: GS1-CBV-Min
+      description: 
+        $ref: '#/components/headers/GS1-CBV-Min/description'
+      schema:
+        $ref: '#/components/schemas/GS1-CBV-Min'
+    GS1-CBV-Max:
+      in: header
+      name: GS1-CBV-Max
+      description: 
+        $ref: '#/components/headers/GS1-CBV-Max/description'
+      schema:
+        $ref: '#/components/schemas/GS1-CBV-Max'
     GS1-EPC-Format:
       in: header
       name: GS1-EPC-Format
+      description: 
+        $ref: '#/components/headers/GS1-EPC-Format/description'
       schema:
         $ref: '#/components/schemas/GS1-EPC-Format'
     GS1-CBV-XML-Format:
       in: header
       name: GS1-CBV-XML-Format
+      description: 
+        $ref: '#/components/headers/GS1-CBV-XML-Format/description'
       schema:
         $ref: '#/components/schemas/GS1-CBV-XML-Format'
     GS1-Extensions:
       in: header
       name: GS1-Extensions
+      description: 
+        $ref: '#/components/headers/GS1-Extensions/description'
       schema:
         $ref: '#/components/schemas/GS1-Extensions'
 
