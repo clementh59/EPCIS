@@ -44,7 +44,7 @@ paths:
         `OPTIONS` on the root path gives the client an overview of the server's EPCIS-related configurations.
       responses:
         '204':
-          $ref: '#/components/responses/204TopLevelResourcesDiscovery'
+          $ref: '#/components/responses/204DefaultDiscoveryResponse'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -95,43 +95,7 @@ paths:
         The list of headers is not exhaustive. It only describes the functionality specific to EPCIS 2.0.
       responses:
         '204':
-          description: |
-            Header describing how to use the capture endpoint.
-          headers:
-            Allow:
-              schema:
-                example: OPTIONS, POST, GET
-                type: string
-                default: OPTIONS, POST, GET
-            GS1-EPCIS-Version:
-              $ref: '#/components/headers/GS1-EPCIS-Version'
-            GS1-EPCIS-Min:
-              $ref: '#/components/headers/GS1-EPCIS-Min'
-            GS1-EPCIS-Max:
-              $ref: '#/components/headers/GS1-EPCIS-Max'
-            GS1-CBV-Version:
-              $ref: '#/components/headers/GS1-CBV-Version'
-            GS1-EPC-Format:
-              $ref: '#/components/headers/GS1-EPC-Format'
-            GS1-CBV-XML-Format:
-              $ref: '#/components/headers/GS1-CBV-XML-Format'
-            GS1-Extensions:
-              $ref: '#/components/headers/GS1-Extensions'
-            GS1-Vendor-Version:
-              $ref: '#/components/headers/GS1-Vendor-Version'
-            GS1-EPCIS-Capture-Limit:
-              $ref: '#/components/headers/GS1-EPCIS-Capture-Limit'
-            GS1-EPCIS-Capture-File-Size-Limit:
-              $ref: '#/components/headers/GS1-EPCIS-Capture-File-Size-Limit'
-            GS1-Capture-Error-Behaviour:
-              schema:
-                default: 'rollback'
-                example: 'rollback'
-                oneOf:
-                  - type: string
-                    enum:
-                      - 'rollback | proceed'
-                  - $ref: '#/components/schemas/GS1-Capture-Error-Behaviour'
+          $ref: '#/components/responses/204CaptureEndpointDiscovery'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -337,36 +301,7 @@ paths:
         versions are used for a given capture job.
       responses:
         '204':
-          description: |
-            Headers describing the vocabularies and CBV and EPCIS versions used in the capture job.
-          headers:
-            Allow:
-              schema:
-                example: OPTIONS, GET
-                type: string
-                default: OPTIONS, GET
-            GS1-EPCIS-Version:
-              $ref: '#/components/headers/GS1-EPCIS-Version'
-            GS1-EPCIS-Min:
-              $ref: '#/components/headers/GS1-EPCIS-Min'
-            GS1-EPCIS-Max:
-              $ref: '#/components/headers/GS1-EPCIS-Max'
-            GS1-CBV-Version:
-              $ref: '#/components/headers/GS1-CBV-Version'
-            GS1-EPC-Format:
-              $ref: '#/components/headers/GS1-EPC-Format'
-            GS1-CBV-XML-Format:
-              $ref: '#/components/headers/GS1-CBV-XML-Format'
-            GS1-Extensions:
-              $ref: '#/components/headers/GS1-Extensions'
-            GS1-Vendor-Version:
-              $ref: '#/components/headers/GS1-Vendor-Version'
-            GS1-EPCIS-Capture-Limit:
-              $ref: '#/components/headers/GS1-EPCIS-Capture-Limit'
-            GS1-EPCIS-Capture-File-Size-Limit:
-              $ref: '#/components/headers/GS1-EPCIS-Capture-File-Size-Limit'
-            GS1-Capture-Error-Behaviour:
-              $ref: '#/components/headers/GS1-Capture-Error-Behaviour'
+          $ref: '#/components/responses/204DefaultDiscoveryResponse'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -464,7 +399,7 @@ paths:
         versions are used.
       responses:
         '204':
-          $ref: '#/components/responses/204WriteResourcesDiscovery'
+          $ref: '#/components/responses/204WritableResourcesDiscovery'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -594,7 +529,7 @@ paths:
         versions are used.
       responses:
         '204':
-          $ref: '#/components/responses/204TopLevelResourcesDiscovery'
+          $ref: '#/components/responses/204DefaultDiscoveryResponse'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -644,7 +579,7 @@ paths:
         versions are used.
       responses:
         '204':
-          $ref: '#/components/responses/204TopLevelResourcesDiscovery'
+          $ref: '#/components/responses/204DefaultDiscoveryResponse'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -694,7 +629,7 @@ paths:
         versions are used.
       responses:
         '204':
-          $ref: '#/components/responses/204TopLevelResourcesDiscovery'
+          $ref: '#/components/responses/204DefaultDiscoveryResponse'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -746,36 +681,7 @@ paths:
         versions are used.
       responses:
         '204':
-          description: |
-            The `OPTIONS` method is used to discover capabilities of `events` endpoints. It describes which EPCIS and CBV
-            versions are supported as well as  EPCIS and CBV extensions.
-            The list of headers is not exhaustive. It only describes the functionality specific to EPCIS 2.0.
-          headers:
-            Allow:
-              schema:
-                example: OPTIONS, POST, GET
-                type: string
-                default: OPTIONS, POST, GET
-            GS1-EPCIS-Version:
-              $ref: '#/components/headers/GS1-EPCIS-Version'
-            GS1-EPCIS-Min:
-              $ref: '#/components/headers/GS1-EPCIS-Min'
-            GS1-EPCIS-Max:
-              $ref: '#/components/headers/GS1-EPCIS-Max'
-            GS1-CBV-Version:
-              $ref: '#/components/headers/GS1-CBV-Version'
-            GS1-EPC-Format:
-              $ref: '#/components/headers/GS1-EPC-Format'
-            GS1-CBV-XML-Format:
-              $ref: '#/components/headers/GS1-CBV-XML-Format'
-            GS1-Extensions:
-              $ref: '#/components/headers/GS1-Extensions'
-            GS1-Vendor-Version:
-              $ref: '#/components/headers/GS1-Vendor-Version'
-            GS1-EPCIS-Capture-Limit:
-              $ref: '#/components/headers/GS1-EPCIS-Capture-Limit'
-            GS1-EPCIS-Capture-File-Size-Limit:
-              $ref: '#/components/headers/GS1-EPCIS-Capture-File-Size-Limit'
+          $ref: '#/components/responses/204EventsEndpointDiscovery'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -837,7 +743,7 @@ paths:
         versions are used.
       responses:
         '204':
-          $ref: '#/components/responses/204TopLevelResourcesDiscovery'
+          $ref: '#/components/responses/204DefaultDiscoveryResponse'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -923,7 +829,7 @@ paths:
         versions are used.
       responses:
           '204':
-            $ref: '#/components/responses/204TopLevelResourcesDiscovery'
+            $ref: '#/components/responses/204DefaultDiscoveryResponse'
           '401':
             $ref: '#/components/responses/401UnauthorizedRequest'
           '403':
@@ -1041,7 +947,7 @@ paths:
         versions are used.
       responses:
         '204':
-          $ref: '#/components/responses/204TopLevelResourcesDiscovery'
+          $ref: '#/components/responses/204DefaultDiscoveryResponse'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -1118,7 +1024,7 @@ paths:
         versions are used.
       responses:
         '204':
-          $ref: '#/components/responses/204TopLevelResourcesDiscovery'
+          $ref: '#/components/responses/204DefaultDiscoveryResponse'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -1230,7 +1136,7 @@ paths:
         versions are used.
       responses:
         '204':
-          $ref: '#/components/responses/204TopLevelResourcesDiscovery'
+          $ref: '#/components/responses/204DefaultDiscoveryResponse'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -1304,7 +1210,7 @@ paths:
         versions are used.
       responses:
         '204':
-          $ref: '#/components/responses/204TopLevelResourcesDiscovery'
+          $ref: '#/components/responses/204DefaultDiscoveryResponse'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -1349,7 +1255,7 @@ paths:
         versions are used.
       responses:
         '204':
-          $ref: '#/components/responses/204TopLevelResourcesDiscovery'
+          $ref: '#/components/responses/204DefaultDiscoveryResponse'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -1427,7 +1333,7 @@ paths:
         versions are used.
       responses:
         '204':
-          $ref: '#/components/responses/204TopLevelResourcesDiscovery'
+          $ref: '#/components/responses/204DefaultDiscoveryResponse'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -1538,7 +1444,7 @@ paths:
         versions are used.
       responses:
         '204':
-          $ref: '#/components/responses/204TopLevelResourcesDiscovery'
+          $ref: '#/components/responses/204DefaultDiscoveryResponse'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -1612,7 +1518,7 @@ paths:
         versions are used.
       responses:
         '204':
-          $ref: '#/components/responses/204TopLevelResourcesDiscovery'
+          $ref: '#/components/responses/204DefaultDiscoveryResponse'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -1726,7 +1632,7 @@ paths:
         versions are used.
       responses:
         '204':
-          $ref: '#/components/responses/204WriteResourcesDiscovery'
+          $ref: '#/components/responses/204WritableResourcesDiscovery'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -1940,7 +1846,7 @@ paths:
         versions are used.
       responses:
         '204':
-          $ref: '#/components/responses/204DeleteResourcesDiscovery'
+          $ref: '#/components/responses/204RemovableResourcesDiscovery'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -2248,25 +2154,7 @@ paths:
         The `OPTIONS` method is used to discover capabilities for a query subscription.
       responses:
         '204':
-          description: |
-            The `OPTIONS` method returns information describing individual query subscriptions.
-            The list of headers is not exhaustive. It only describes the functionality specific to EPCIS 2.0.
-          headers:
-            Allow:
-              schema:
-                example: OPTIONS, GET, DELETE
-                type: string
-                default: OPTIONS, GET, DELETE
-            GS1-EPCIS-Version:
-              $ref: '#/components/headers/GS1-EPCIS-Version'
-            GS1-EPCIS-Min:
-              $ref: '#/components/headers/GS1-EPCIS-Min'
-            GS1-EPCIS-Max:
-              $ref: '#/components/headers/GS1-EPCIS-Max'
-            GS1-CBV-Version:
-              $ref: '#/components/headers/GS1-CBV-Version'
-            GS1-Vendor-Version:
-              $ref: '#/components/headers/GS1-Vendor-Version'
+          $ref: '#/components/responses/204SubscriptionEndpointDiscovery'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
@@ -2456,26 +2344,6 @@ paths:
 
 components:
   responses:
-    204RepositoryOptions:
-      description: |
-        Common headers sent within the response to an OPTIONS method
-      headers:
-        GS1-EPCIS-Min:
-          $ref: '#/components/headers/GS1-EPCIS-Min'
-        GS1-EPCIS-Max:
-          $ref: '#/components/headers/GS1-EPCIS-Max'
-        GS1-CBV-Min:
-          $ref: '#/components/headers/GS1-CBV-Min'
-        GS1-CBV-Max:
-          $ref: '#/components/headers/GS1-CBV-Max'
-        GS1-EPC-Format:
-          $ref: '#/components/headers/GS1-EPC-Format'
-        GS1-CBV-XML-Format:
-          $ref: '#/components/headers/GS1-CBV-XML-Format'
-        GS1-Extensions:
-          $ref: '#/components/headers/GS1-Extensions'
-        GS1-Vendor-Version:
-          $ref: '#/components/headers/GS1-Vendor-Version'
     101WebsocketCreated:
       description: |
         Create a WebSocket connection to subscribe to queries. Upon subscription, the server SHALL send all new events
@@ -2568,7 +2436,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/EventTypeItemList'
-    204TopLevelResourcesDiscovery:
+    204DefaultDiscoveryResponse:
       description: |
         The `OPTIONS` method is used to discover capabilities for EPCIS 2.0 endpoints.
         It describes which EPCIS and CBV versions are supported and used for the top-level resource as well as EPCIS and
@@ -2596,11 +2464,9 @@ components:
           $ref: '#/components/headers/GS1-Extensions'
         GS1-Vendor-Version:
           $ref: '#/components/headers/GS1-Vendor-Version'
-    204WriteResourcesDiscovery:
-      description: |
-        The `OPTIONS` method is used to discover capabilities for EPCIS 2.0 endpoints.
-        It describes which EPCIS and CBV versions are supported and used for the top-level resource as well as EPCIS and
-        CBV extensions. The list of headers is not exhaustive. It only describes the functionality specific to EPCIS 2.0.
+    204WritableResourcesDiscovery:
+      description: 
+        $ref: '#/components/responses/204DefaultDiscoveryResponse/description'
       headers:
         Allow:
           description: Lists the set of methods supported by the resource. 
@@ -2624,11 +2490,9 @@ components:
           $ref: '#/components/headers/GS1-Extensions'
         GS1-Vendor-Version:
           $ref: '#/components/headers/GS1-Vendor-Version'
-    204DeleteResourcesDiscovery:
-      description: |
-        The `OPTIONS` method is used to discover capabilities for EPCIS 2.0 endpoints.
-        It describes which EPCIS and CBV versions are supported and used for the top-level resource as well as EPCIS and
-        CBV extensions. The list of headers is not exhaustive. It only describes the functionality specific to EPCIS 2.0.
+    204RemovableResourcesDiscovery:
+      description: 
+        $ref: '#/components/responses/204DefaultDiscoveryResponse/description'
       headers:
         Allow:
           description: Lists the set of methods supported by the resource. 
@@ -2652,51 +2516,31 @@ components:
           $ref: '#/components/headers/GS1-Extensions'
         GS1-Vendor-Version:
           $ref: '#/components/headers/GS1-Vendor-Version'
-    204AnonymousQueriesDiscovery:
-      description: |
-        The `OPTIONS` method is used to discover capabilities for anonymous queries endpoints.
-        The list of headers is not exhaustive. It only describes the functionality specific to EPCIS 2.0.
-      headers:
-        Allow:
-          schema:
-            example: OPTIONS, POST, GET
-            type: string
-            default: OPTIONS, POST, GET
-        GS1-EPCIS-Version:
-          $ref: '#/components/headers/GS1-EPCIS-Version'
-        GS1-EPCIS-Min:
-          $ref: '#/components/headers/GS1-EPCIS-Min'
-        GS1-EPCIS-Max:
-          $ref: '#/components/headers/GS1-EPCIS-Max'
-        GS1-CBV-Version:
-          $ref: '#/components/headers/GS1-CBV-Version'
-        GS1-EPC-Format:
-          $ref: '#/components/headers/GS1-EPC-Format'
-        GS1-CBV-XML-Format:
-          $ref: '#/components/headers/GS1-CBV-XML-Format'
-        GS1-Extensions:
-          $ref: '#/components/headers/GS1-Extensions'
-        GS1-Vendor-Version:
-          $ref: '#/components/headers/GS1-Vendor-Version'
     204EventsEndpointDiscovery:
       description: |
         The `OPTIONS` method is used to discover capabilities for `events` endpoints. It describes which EPCIS and CBV
         versions are supported as well as  EPCIS and CBV extensions.
         The list of headers is not exhaustive. It only describes the functionality specific to EPCIS 2.0.
       headers:
+        $ref: '#/components/responses/204DefaultDiscoveryResponse/headers'
+    204CaptureEndpointDiscovery:
+      description:
+        $ref: '#/components/responses/204DefaultDiscoveryResponse/description'
+      headers:
         Allow:
+          description: Lists the set of methods supported by the resource. 
           schema:
-            example: OPTIONS, GET
+            example: OPTIONS, POST, GET
             type: string
-            default: OPTIONS, GET
-        GS1-EPCIS-Version:
-          $ref: '#/components/headers/GS1-EPCIS-Version'
+            default: OPTIONS, POST, GET
         GS1-EPCIS-Min:
           $ref: '#/components/headers/GS1-EPCIS-Min'
         GS1-EPCIS-Max:
           $ref: '#/components/headers/GS1-EPCIS-Max'
-        GS1-CBV-Version:
-          $ref: '#/components/headers/GS1-CBV-Version'
+        GS1-CBV-Min:
+          $ref: '#/components/headers/GS1-CBV-Min'
+        GS1-CBV-Max:
+          $ref: '#/components/headers/GS1-CBV-Max'
         GS1-EPC-Format:
           $ref: '#/components/headers/GS1-EPC-Format'
         GS1-CBV-XML-Format:
@@ -2705,6 +2549,42 @@ components:
           $ref: '#/components/headers/GS1-Extensions'
         GS1-Vendor-Version:
           $ref: '#/components/headers/GS1-Vendor-Version'
+        GS1-EPCIS-Capture-Limit:
+          $ref: '#/components/headers/GS1-EPCIS-Capture-Limit'
+        GS1-EPCIS-Capture-File-Size-Limit:
+          $ref: '#/components/headers/GS1-EPCIS-Capture-File-Size-Limit'
+        GS1-Capture-Error-Behaviour:
+          $ref: '#/components/headers/GS1-Capture-Error-Behaviour'
+    204SubscriptionEndpointDiscovery:
+      description: |
+        The `OPTIONS` method returns information describing individual query subscriptions.
+        The list of headers is not exhaustive. It only describes the functionality specific to EPCIS 2.0.
+      headers:
+        Allow:
+          description: Lists the set of methods supported by the resource. 
+          schema:
+            example: OPTIONS, DELETE, GET
+            type: string
+            default: OPTIONS, DELETE, GET
+        GS1-EPCIS-Min:
+          $ref: '#/components/headers/GS1-EPCIS-Min'
+        GS1-EPCIS-Max:
+          $ref: '#/components/headers/GS1-EPCIS-Max'
+        GS1-CBV-Min:
+          $ref: '#/components/headers/GS1-CBV-Min'
+        GS1-CBV-Max:
+          $ref: '#/components/headers/GS1-CBV-Max'
+        GS1-EPC-Format:
+          $ref: '#/components/headers/GS1-EPC-Format'
+        GS1-CBV-XML-Format:
+          $ref: '#/components/headers/GS1-CBV-XML-Format'
+        GS1-Extensions:
+          $ref: '#/components/headers/GS1-Extensions'
+        GS1-Vendor-Version:
+          $ref: '#/components/headers/GS1-Vendor-Version'
+        GS1-Query-Min-Record-Time:
+          $ref: '#/components/headers/GS1-Query-Min-Record-Time'
+
     204QueryDeleted:
       description: Query deleted and clients disconnected.
     400SubscriptionIssues:
@@ -4220,7 +4100,7 @@ components:
       schema:
         $ref: '#/components/schemas/GS1-EPCIS-Capture-Limit'
     GS1-Query-Min-Record-Time:
-      description: T.B.D. 
+      description: Informs about the smallest possible record time for EPCIS events in an outstanding query subscription.
       schema:
         $ref: '#/components/schemas/GS1-Query-Min-Record-Time'
     GS1-EPCIS-Capture-File-Size-Limit:
@@ -4241,6 +4121,7 @@ components:
       description: The expiry time for nextPageToken.
       schema:
         $ref: '#/components/schemas/GS1-Next-Page-Token-Expires'
+      
 
   requestBodies:
     CreateQuery:
