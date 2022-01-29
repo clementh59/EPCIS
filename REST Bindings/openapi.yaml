@@ -2161,6 +2161,7 @@ paths:
         - $ref: '#/components/parameters/GS1-Query-Month'
         - $ref: '#/components/parameters/GS1-Query-DayOfWeek'
         - $ref: '#/components/parameters/GS1-Query-Stream'
+        # Common /events parameters
         - $ref: '#/components/parameters/NextPageToken'
         - $ref: '#/components/parameters/PerPage'
         - $ref: '#/components/parameters/GS1-CBV-Version'
