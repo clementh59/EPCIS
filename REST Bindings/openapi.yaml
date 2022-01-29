@@ -701,6 +701,8 @@ paths:
           $ref: '#/components/responses/500ImplementationException'
 
   /epcs:
+    parameters:
+      - $ref: '#/components/parameters/GS1-Extensions'
     options:
       tags:
         - 'Discovery'
@@ -733,7 +735,6 @@ paths:
         - $ref: '#/components/parameters/GS1-CBV-Min'
         - $ref: '#/components/parameters/GS1-CBV-Max'
         - $ref: '#/components/parameters/GS1-EPC-Format'
-        - $ref: '#/components/parameters/GS1-Extensions'
       summary: Returns known electronic product codes.
       description: |
         An endpoint to list electronic product codes.
@@ -1072,6 +1073,8 @@ paths:
           $ref: '#/components/responses/500ImplementationException'
 
   /bizLocations:
+    parameters:
+      - $ref: '#/components/parameters/GS1-Extensions'
     options:
       tags:
         - 'Discovery'
@@ -1101,9 +1104,9 @@ paths:
         - $ref: '#/components/parameters/GS1-EPCIS-Min'
         - $ref: '#/components/parameters/GS1-EPCIS-Max'
         - $ref: '#/components/parameters/GS1-CBV-Version'
+        - $ref: '#/components/parameters/GS1-CBV-Min'
+        - $ref: '#/components/parameters/GS1-CBV-Max'
         - $ref: '#/components/parameters/GS1-EPC-Format'
-        - $ref: '#/components/parameters/GS1-CBV-XML-Format'
-        - $ref: '#/components/parameters/GS1-Extensions'
       summary: Returns known business locations.
       description: |
         An endpoint to list business locations.
@@ -1178,6 +1181,8 @@ paths:
           $ref: '#/components/responses/500ImplementationException'
 
   /readPoints:
+    parameters:
+      - $ref: '#/components/parameters/GS1-Extensions'
     options:
       tags:
         - 'Discovery'
@@ -1207,9 +1212,9 @@ paths:
         - $ref: '#/components/parameters/GS1-EPCIS-Min'
         - $ref: '#/components/parameters/GS1-EPCIS-Max'
         - $ref: '#/components/parameters/GS1-CBV-Version'
+        - $ref: '#/components/parameters/GS1-CBV-Min'
+        - $ref: '#/components/parameters/GS1-CBV-Max'
         - $ref: '#/components/parameters/GS1-EPC-Format'
-        - $ref: '#/components/parameters/GS1-CBV-XML-Format'
-        - $ref: '#/components/parameters/GS1-Extensions'
       summary: Returns known read points.
       description: |
         An endpoint to list read points.
