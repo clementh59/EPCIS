@@ -80,6 +80,8 @@ paths:
     
 
   /capture:
+    parameters:
+      - $ref: '#/components/parameters/GS1-Extensions'
     options:
       tags:
         - 'Discovery'
@@ -114,14 +116,7 @@ paths:
         - $ref: '#/components/parameters/GS1-CBV-Version'
         - $ref: '#/components/parameters/GS1-EPC-Format'
         - $ref: '#/components/parameters/GS1-CBV-XML-Format'
-        - $ref: '#/components/parameters/GS1-Extensions'
-        - name: GS1-Capture-Error-Behaviour
-          description: 
-            $ref: '#/components/headers/GS1-Capture-Error-Behaviour/description'
-          in: header
-          required: false
-          schema:
-            $ref: '#/components/schemas/GS1-Capture-Error-Behaviour'
+        - $ref: '#/components/parameters/GS1-Capture-Error-Behaviour'
 
       description: |
         EPCIS events are added in bulk using the capture interface. Four design considerations were made to remain compatible with EPCIS 1.2:
@@ -152,6 +147,10 @@ paths:
             Successfully received one or more EPCIS events. The request returns a unique
             capture job URL in the Location header.
           headers:
+            GS1-EPCIS-Version:
+              $ref: '#/components/headers/GS1-EPCIS-Version'
+            GS1-CBV-Version:
+              $ref: '#/components/headers/GS1-CBV-Version'
             GS1-EPC-Format:
               $ref: '#/components/headers/GS1-EPC-Format'
             GS1-CBV-XML-Format:
@@ -201,6 +200,8 @@ paths:
       parameters:
         - $ref: '#/components/parameters/NextPageToken'
         - $ref: '#/components/parameters/PerPage'
+        - $ref: '#/components/parameters/GS1-EPCIS-Version'
+        - $ref: '#/components/parameters/GS1-Extensions'
       summary: Returns a list of capture jobs.
       description: |
         An endpoint to list capture jobs.
@@ -259,6 +260,7 @@ paths:
         required: true
         schema:
           type: string
+      - $ref: '#/components/parameters/GS1-Extensions' 
     options:
       tags:
         - 'Discovery'
@@ -274,11 +276,15 @@ paths:
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
           $ref: '#/components/responses/403ClientUnauthorized'
+        '404':
+          $ref: '#/components/responses/404ResourceNotFound'
         '406':
           $ref: '#/components/responses/406NotAcceptable'
         '500':
           $ref: '#/components/responses/500ImplementationException'
     get:
+      parameters:
+        - $ref: '#/components/parameters/GS1-EPCIS-Version'
       tags:
         - 'Capture'
       summary: Returns information about the capture job.
@@ -398,6 +404,11 @@ paths:
           $ref: '#/components/responses/500ImplementationException'
 
     post:
+      parameters:
+        - $ref: '#/components/parameters/GS1-EPCIS-Version'
+        - $ref: '#/components/parameters/GS1-CBV-Version'
+        - $ref: '#/components/parameters/GS1-EPC-Format'
+        - $ref: '#/components/parameters/GS1-CBV-XML-Format'
       tags:
         - 'Capture'
       summary: Synchronous capture interface for a single EPCIS event.
@@ -420,10 +431,6 @@ paths:
           headers:
             GS1-EPCIS-Version:
               $ref: '#/components/headers/GS1-EPCIS-Version'
-            GS1-EPCIS-Min:
-              $ref: '#/components/headers/GS1-EPCIS-Min'
-            GS1-EPCIS-Max:
-              $ref: '#/components/headers/GS1-EPCIS-Max'
             GS1-CBV-Version:
               $ref: '#/components/headers/GS1-CBV-Version'
             GS1-EPC-Format:
@@ -432,12 +439,6 @@ paths:
               $ref: '#/components/headers/GS1-CBV-XML-Format'
             GS1-Extensions:
               $ref: '#/components/headers/GS1-Extensions'
-            GS1-Vendor-Version:
-              $ref: '#/components/headers/GS1-Vendor-Version'
-            GS1-EPCIS-Capture-Limit:
-              $ref: '#/components/headers/GS1-EPCIS-Capture-Limit'
-            GS1-EPCIS-Capture-File-Size-Limit:
-              $ref: '#/components/headers/GS1-EPCIS-Capture-File-Size-Limit'
             Location:
               example: "https://example.com/eventTypes/ObjectEvent/events/eventId123"
               schema:
@@ -1868,9 +1869,7 @@ paths:
             GS1-Extensions:
               $ref: '#/components/headers/GS1-Extensions'
             Link:
-              example: '<https://example.com/queries/myQuery/subscriptions?perPage=30&nextPageToken=3A15506738749783AU6D7DENAKwM2gQRRwGrataeq>; rel="next"'
-              schema:
-                $ref: '#/components/schemas/Link'
+              $ref: '#/components/headers/Link'
             GS1-Next-Page-Token-Expires:
               $ref: '#/components/headers/GS1-Next-Page-Token-Expires'
           description: Returns active subscriptions.
@@ -2358,13 +2357,7 @@ components:
         GS1-CBV-XML-Format:
           $ref: '#/components/headers/GS1-CBV-XML-Format'
         Link:
-          description: |
-            A pagination header link. This header works together with the `perPage` and `nextPageToken` query string
-            parameters.
-            As long as there are more resources to retrieve, the `Link` header contains the URL of the next page and
-            the attribute `rel="next"`. The last page is indicated by the absence of the `rel="next"`.
-          schema:
-            $ref: '#/components/schemas/Link'
+          $ref: '#/components/headers/Link'
         GS1-Next-Page-Token-Expires:
           $ref: '#/components/headers/GS1-Next-Page-Token-Expires'
       description: Contains EPCIS events.
@@ -3371,6 +3364,9 @@ components:
         parameters.
       type: string
       format: uri
+      example: 
+        '<https://example.com/epcis/events?perPage=30&nextPageToken=3A15506738749783AU6D7DENAKwM2gQRRwGrataeq>; rel="next"'
+        
     PerPage:
       description: |
         This parameter helps to control the amount of data returned to the client through pagination.
@@ -4051,6 +4047,14 @@ components:
         $ref: '#/components/headers/GS1-Extensions/description'
       schema:
         $ref: '#/components/schemas/GS1-Extensions'
+    GS1-Capture-Error-Behaviour:
+      name: GS1-Capture-Error-Behaviour
+      description: 
+        $ref: '#/components/headers/GS1-Capture-Error-Behaviour/description'
+      in: header
+      required: false
+      schema:
+        $ref: '#/components/schemas/GS1-Capture-Error-Behaviour'
 
   headers:
     GS1-EPCIS-Version:
