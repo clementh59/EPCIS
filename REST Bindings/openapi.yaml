@@ -496,6 +496,8 @@ paths:
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
           $ref: '#/components/responses/403ClientUnauthorized'
+        '404':
+          $ref: '#/components/responses/404ResourceNotFound'
         '406':
           $ref: '#/components/responses/406NotAcceptable'
         '500':
@@ -602,6 +604,8 @@ paths:
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
           $ref: '#/components/responses/403ClientUnauthorized'
+        '404':
+          $ref: '#/components/responses/404ResourceNotFound'
         '406':
           $ref: '#/components/responses/406NotAcceptable'
         '500':
@@ -811,6 +815,8 @@ paths:
             $ref: '#/components/responses/401UnauthorizedRequest'
           '403':
             $ref: '#/components/responses/403ClientUnauthorized'
+          '404':
+            $ref: '#/components/responses/404ResourceNotFound'
           '406':
             $ref: '#/components/responses/406NotAcceptable'
           '500':
@@ -994,6 +1000,8 @@ paths:
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
           $ref: '#/components/responses/403ClientUnauthorized'
+        '404':
+          $ref: '#/components/responses/404ResourceNotFound'
         '406':
           $ref: '#/components/responses/406NotAcceptable'
         '500':
@@ -1172,6 +1180,8 @@ paths:
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
           $ref: '#/components/responses/403ClientUnauthorized'
+        '404':
+          $ref: '#/components/responses/404ResourceNotFound'
         '406':
           $ref: '#/components/responses/406NotAcceptable'
         '500':
@@ -1280,6 +1290,8 @@ paths:
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
           $ref: '#/components/responses/403ClientUnauthorized'
+        '404':
+          $ref: '#/components/responses/404ResourceNotFound'
         '406':
           $ref: '#/components/responses/406NotAcceptable'
         '500':
@@ -1461,6 +1473,8 @@ paths:
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
           $ref: '#/components/responses/403ClientUnauthorized'
+        '404':
+          $ref: '#/components/responses/404ResourceNotFound'
         '406':
           $ref: '#/components/responses/406NotAcceptable'
         '500':
@@ -1565,6 +1579,8 @@ paths:
       tags:
         - 'Discovery'
       summary: Query the metadata of the EPCIS queries endpoint.
+      parameters:
+        - $ref: '#/components/parameters/GS1-Extensions'
       description: |
         EPCIS 2.0 supports a number of custom headers to describe custom vocabularies and support multiple versions
         of EPCIS and CBV. The `OPTIONS` method allows the client to discover which vocabularies and EPCIS and CBV
@@ -1586,6 +1602,13 @@ paths:
       parameters:
         - $ref: '#/components/parameters/NextPageToken'
         - $ref: '#/components/parameters/PerPage'
+        - $ref: '#/components/parameters/GS1-Extensions'
+        - $ref: '#/components/parameters/GS1-CBV-Version'
+        - $ref: '#/components/parameters/GS1-CBV-Min'
+        - $ref: '#/components/parameters/GS1-CBV-Max'
+        - $ref: '#/components/parameters/GS1-EPCIS-Version'
+        - $ref: '#/components/parameters/GS1-EPCIS-Min'
+        - $ref: '#/components/parameters/GS1-EPCIS-Max'
       summary: Returns a list of queries available.
       description: |
         An endpoint to list named queries.
@@ -1653,13 +1676,10 @@ paths:
         Creates a named EPCIS events query.
       parameters:
         - $ref: '#/components/parameters/GS1-EPCIS-Version'
-        - $ref: '#/components/parameters/GS1-EPCIS-Min'
-        - $ref: '#/components/parameters/GS1-EPCIS-Max'
         - $ref: '#/components/parameters/GS1-CBV-Version'
         - $ref: '#/components/parameters/GS1-EPC-Format'
         - $ref: '#/components/parameters/GS1-CBV-XML-Format'
         - $ref: '#/components/parameters/GS1-Extensions'
-        - $ref: '#/components/parameters/PerPage'
       description: |
         Creating a named query creates a view on the events in the repository, accessible through its events resource.
         To obtain the named query results, the client can use the URL in the `Location` header. The client can also use this URL to start a query subscription immediately after creating the query.
@@ -1670,10 +1690,6 @@ paths:
           headers:
             GS1-EPCIS-Version:
               $ref: '#/components/headers/GS1-EPCIS-Version'
-            GS1-EPCIS-Min:
-              $ref: '#/components/headers/GS1-EPCIS-Min'
-            GS1-EPCIS-Max:
-              $ref: '#/components/headers/GS1-EPCIS-Max'
             GS1-CBV-Version:
               $ref: '#/components/headers/GS1-CBV-Version'
             GS1-EPC-Format:
@@ -1694,8 +1710,6 @@ paths:
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
           $ref: '#/components/responses/403ClientUnauthorized'
-        '404':
-          $ref: '#/components/responses/404ResourceNotFound'
         '406':
           $ref: '#/components/responses/406NotAcceptable'
         '415':
@@ -1707,6 +1721,10 @@ paths:
     parameters:
       - $ref: '#/components/parameters/QueryName'
     get:
+      parameters:
+        - $ref: '#/components/parameters/GS1-EPCIS-Min'
+        - $ref: '#/components/parameters/GS1-EPCIS-Max'
+        - $ref: '#/components/parameters/GS1-Extensions'
       tags:
         - 'Queries'
       summary: Returns the query definition.
@@ -1715,10 +1733,6 @@ paths:
           headers:
             GS1-EPCIS-Version:
               $ref: '#/components/headers/GS1-EPCIS-Version'
-            GS1-EPCIS-Min:
-              $ref: '#/components/headers/GS1-EPCIS-Min'
-            GS1-EPCIS-Max:
-              $ref: '#/components/headers/GS1-EPCIS-Max'
             GS1-CBV-Version:
               $ref: '#/components/headers/GS1-CBV-Version'
             GS1-EPC-Format:
@@ -1766,6 +1780,8 @@ paths:
         '500':
           $ref: '#/components/responses/500ImplementationException'
     options:
+      parameters:
+        - $ref: '#/components/parameters/GS1-Extensions'
       tags:
         - 'Discovery'
       summary: Query the metadata of the named queries endpoint.
@@ -1780,6 +1796,8 @@ paths:
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
           $ref: '#/components/responses/403ClientUnauthorized'
+        '404':
+          $ref: '#/components/responses/404ResourceNotFound'
         '406':
           $ref: '#/components/responses/406NotAcceptable'
         '500':
@@ -1805,6 +1823,7 @@ paths:
   /queries/{queryName}/subscriptions:
     parameters:
       - $ref: '#/components/parameters/QueryName'
+      - $ref: '#/components/parameters/GS1-Extensions'
     options:
       tags:
         - 'Discovery'
@@ -1817,25 +1836,13 @@ paths:
             The `OPTIONS` method returns information describing the  `subscriptions`  endpoint.
             The list of headers is not exhaustive. It only describes the functionality specific to EPCIS 2.0.
           headers:
-            Allow:
-              schema:
-                example: OPTIONS, POST, GET
-                type: string
-                default: OPTIONS, POST, GET
-            GS1-EPCIS-Version:
-              $ref: '#/components/headers/GS1-EPCIS-Version'
-            GS1-EPCIS-Min:
-              $ref: '#/components/headers/GS1-EPCIS-Min'
-            GS1-EPCIS-Max:
-              $ref: '#/components/headers/GS1-EPCIS-Max'
-            GS1-CBV-Version:
-              $ref: '#/components/headers/GS1-CBV-Version'
-            GS1-Vendor-Version:
-              $ref: '#/components/headers/GS1-Vendor-Version'
+            $ref: '#/components/responses/204WritableResourcesDiscovery/headers'
         '401':
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
           $ref: '#/components/responses/403ClientUnauthorized'
+        '404':
+          $ref: '#/components/responses/404ResourceNotFound'
         '406':
           $ref: '#/components/responses/406NotAcceptable'
         '500':
@@ -1848,6 +1855,9 @@ paths:
       parameters:
         - $ref: '#/components/parameters/NextPageToken'
         - $ref: '#/components/parameters/PerPage'
+        - $ref: '#/components/parameters/GS1-EPCIS-Version'
+        - $ref: '#/components/parameters/GS1-EPCIS-Min'
+        - $ref: '#/components/parameters/GS1-EPCIS-Max'
       description: |
         The `GET` endpoint is to list all active subscriptions on that query.
       responses:
@@ -1855,22 +1865,14 @@ paths:
           headers:
             GS1-EPCIS-Version:
               $ref: '#/components/headers/GS1-EPCIS-Version'
-            GS1-EPCIS-Min:
-              $ref: '#/components/headers/GS1-EPCIS-Min'
-            GS1-EPCIS-Max:
-              $ref: '#/components/headers/GS1-EPCIS-Max'
-            GS1-CBV-Version:
-              $ref: '#/components/headers/GS1-CBV-Version'
-            GS1-EPC-Format:
-              $ref: '#/components/headers/GS1-EPC-Format'
-            GS1-CBV-XML-Format:
-              $ref: '#/components/headers/GS1-CBV-XML-Format'
             GS1-Extensions:
               $ref: '#/components/headers/GS1-Extensions'
             Link:
               example: '<https://example.com/queries/myQuery/subscriptions?perPage=30&nextPageToken=3A15506738749783AU6D7DENAKwM2gQRRwGrataeq>; rel="next"'
               schema:
                 $ref: '#/components/schemas/Link'
+            GS1-Next-Page-Token-Expires:
+              $ref: '#/components/headers/GS1-Next-Page-Token-Expires'
           description: Returns active subscriptions.
           content:
             application/json:
@@ -1917,12 +1919,6 @@ paths:
       summary: Creates a query subscription.
       parameters:
         - $ref: '#/components/parameters/GS1-EPCIS-Version'
-        - $ref: '#/components/parameters/GS1-EPCIS-Min'
-        - $ref: '#/components/parameters/GS1-EPCIS-Max'
-        - $ref: '#/components/parameters/GS1-CBV-Version'
-        - $ref: '#/components/parameters/GS1-EPC-Format'
-        - $ref: '#/components/parameters/GS1-CBV-XML-Format'
-        - $ref: '#/components/parameters/GS1-Extensions'
       description: |
         Creating a query subscription requires the client to provide a single endpoint to which the
         server will send events (as `EPCISQueryDocument`) and a subscription secret that the server needs to authenticate itself when
@@ -2076,6 +2072,8 @@ paths:
         schema:
           $ref: '#/components/schemas/subscriptionID'
     options:
+      parameters:
+        - $ref: '#/components/parameters/GS1-Extensions'
       tags:
         - 'Discovery'
       summary: Query the metadata of the endpoint for an individual subscription.
@@ -2088,6 +2086,8 @@ paths:
           $ref: '#/components/responses/401UnauthorizedRequest'
         '403':
           $ref: '#/components/responses/403ClientUnauthorized'
+        '404':
+          $ref: '#/components/responses/404ResourceNotFound'
         '406':
           $ref: '#/components/responses/406NotAcceptable'
         '500':
@@ -2097,8 +2097,17 @@ paths:
         - 'Queries'
         - 'Subscriptions'
       summary: Returns the details of a subscription. This method is useful to verify if a subscription is still active.
+      parameters:
+        - $ref: '#/components/parameters/GS1-EPCIS-Min'
+        - $ref: '#/components/parameters/GS1-EPCIS-Max'
+        - $ref: '#/components/parameters/GS1-Extensions'
       responses:
         '200':
+          headers:
+            'GS1-Extensions': 
+              $ref: '#/components/headers/GS1-Extensions'
+            GS1-EPCIS-Version: 
+              $ref: '#/components/headers/GS1-EPCIS-Version'
           description: |
             The `GET` method on a query subscription allows the client to get the details of an individual subscription.
           content:
