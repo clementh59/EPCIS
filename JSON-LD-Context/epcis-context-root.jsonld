@@ -14,6 +14,14 @@
         "TransformationEvent": "epcis:TransformationEvent",
         "AssociationEvent": "epcis:AssociationEvent",
         "TransactionEvent": "epcis:TransactionEvent",
+        "member": {
+            "@id": "epcis:member",
+            "@context": [
+                "https://gs1.github.io/EPCIS/cbv-context-bizstep.jsonld",
+                "https://gs1.github.io/EPCIS/cbv-context-disposition.jsonld"
+            ],
+            "@type": "@vocab"
+        },
         "eventType": {
             "@id": "epcis:eventType",
             "@type": "@vocab"
