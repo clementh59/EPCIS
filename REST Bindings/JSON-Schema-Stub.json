@@ -4,10 +4,8 @@
     "definitions": {
         "epcisQueryDocument": {
             "type": "object"
-        },": {
-            "type": "object"
-        },
-        "EPCISDocument": {
+        }, 
+        "epcisDocument": {
             "type": "object"
         },
         "ObjectEvent": {
