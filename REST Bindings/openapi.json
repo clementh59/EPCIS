@@ -4919,7 +4919,14 @@
         "description": "EPCIS Event. It must validate against the normative \n<a href=\"../EPCIS-JSON-Schema.json\">EPCIS JSON Schema</a> or <a href=\"../Ontology/EPCIS-SHACL.ttl\">EPCIS SHACL</a>. \n",
         "oneOf": [
           {
-            "$ref": "#/components/schemas/ObjectEvent"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ObjectEvent"
+              },
+              {
+                "$ref": "#/components/schemas/required-ld-context"
+              }
+            ]
           },
           {
             "$ref": "#/components/schemas/AggregationEvent"
@@ -6074,8 +6081,7 @@
         },
         "required": [
           "declarationTime"
-        ],
-        "additionalProperties": false
+        ]
       },
       "quantityElement": {
         "type": "object",

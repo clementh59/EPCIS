@@ -28,6 +28,9 @@
         },
         "Extended-Event": {
             "type": "object"
+        },
+        "required-ld-context": {
+            "type": "object"
         }
     }
 }

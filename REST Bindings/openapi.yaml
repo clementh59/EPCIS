@@ -3288,7 +3288,9 @@ components:
         EPCIS Event. It must validate against the normative 
         <a href="../EPCIS-JSON-Schema.json">EPCIS JSON Schema</a> or <a href="../Ontology/EPCIS-SHACL.ttl">EPCIS SHACL</a>. 
       oneOf:
-        - $ref: 'https://gs1.github.io/EPCIS/REST%20Bindings/JSON-Schema-Stub.json#/definitions/ObjectEvent'
+        - allOf:
+          - $ref: 'https://gs1.github.io/EPCIS/REST%20Bindings/JSON-Schema-Stub.json#/definitions/ObjectEvent'
+          - $ref: 'https://gs1.github.io/EPCIS/REST%20Bindings/JSON-Schema-Stub.json#/definitions/required-ld-context'
         - $ref: 'https://gs1.github.io/EPCIS/REST%20Bindings/JSON-Schema-Stub.json#/definitions/AggregationEvent'
         - $ref: 'https://gs1.github.io/EPCIS/REST%20Bindings/JSON-Schema-Stub.json#/definitions/TransactionEvent'
         - $ref: 'https://gs1.github.io/EPCIS/REST%20Bindings/JSON-Schema-Stub.json#/definitions/TransformationEvent'
