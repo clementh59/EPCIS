@@ -1,6 +1,14 @@
 {
     "$id": "https://gs1.github.io/EPCIS/JSON-Schema/EPCIS-JSON-Schema.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
+    "definitions": {
+        "EPCISDocument": {
+            "$ref": "EPCIS-Document-JSON-Schema.json#/definitions/EPCIS-Document"
+        },
+        "eventType": {
+            "$ref": "schemas/event-definitions-JSON-Schema.json#/definitions/eventType"
+        }
+    },
     "type": "object",
     "required": [
         "type"

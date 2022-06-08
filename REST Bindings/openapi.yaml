@@ -3876,26 +3876,8 @@ components:
         member:
           type: array
           items:
-              $ref: '#/components/schemas/EPCISEventTypes'
+              $ref: 'https://gs1.github.io/EPCIS/REST%20Bindings/JSON-Schema-Stub.json#/definitions/eventType'
           uniqueItems: true
-    EPCISEventTypes:
-      description: The five types of EPCIS events or an extended event denoted by a URI.
-      example:
-        - AggregationEvent
-        - AssociationEvent
-        - ObjectEvent
-        - TransactionEvent
-        - TransformationEvent
-      anyOf:
-        - type: string
-          enum:
-            - AggregationEvent
-            - AssociationEvent
-            - ObjectEvent
-            - TransactionEvent
-            - TransformationEvent
-        - type: string
-          format: uri
     TopLevelResources:
       type: string
       description: The seven top level resources of an EPCIS.
@@ -4458,7 +4440,7 @@ components:
         Names of EPCIS event types.
       schema:
         oneOf:
-          - $ref: '#/components/schemas/EPCISEventTypes'
+          - $ref: 'https://gs1.github.io/EPCIS/REST%20Bindings/JSON-Schema-Stub.json#/definitions/eventType'
     QueryName:
       in: path
       name: queryName
@@ -4656,7 +4638,7 @@ components:
         type: array
         minItems: 1
         items: 
-          $ref: '#/components/schemas/EPCISEventTypes'
+          $ref: 'https://gs1.github.io/EPCIS/REST%20Bindings/JSON-Schema-Stub.json#/definitions/eventType'
 
     GE_eventTime:
       name: GE_eventTime
@@ -4710,11 +4692,7 @@ components:
         type: array
         minItems: 1
         items: 
-           type: string
-           enum: 
-              - "ADD"
-              - "OBSERVE"
-              - "DELETE"
+           $ref: 'https://gs1.github.io/EPCIS/REST%20Bindings/JSON-Schema-Stub.json#/definitions/action'
 
     EQ_bizStep:
       name: EQ_bizStep

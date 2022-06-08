@@ -40,6 +40,12 @@
         },
         "measurementType": {
             "type": "string"
+        },
+        "eventType": {
+            "type": "string"
+        },
+        "action": {
+            "type": "string"
         }
     }
 }

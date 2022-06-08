@@ -1,262 +1,37 @@
 {
   "$id": "https://gs1.github.io/EPCIS/EPCIS-JSON-Schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "type": "object",
-  "required": [
-    "type"
-  ],
-  "properties": {
-    "type": {
-      "type": "string"
-    }
-  },
-  "allOf": [
-    {
-      "if": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "enum": [
-              "EPCISDocument"
-            ]
-          }
-        }
-      },
-      "then": {
-        "$ref": "#/definitions/epcisDocument"
-      }
-    },
-    {
-      "if": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "enum": [
-              "EPCISQueryDocument"
-            ]
-          }
-        }
-      },
-      "then": {
-        "$ref": "#/definitions/epcisQueryDocument"
-      }
-    },
-    {
-      "if": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "enum": [
-              "ObjectEvent"
-            ]
-          }
-        }
-      },
-      "then": {
-        "allOf": [
-          {
-            "$ref": "#/definitions/ObjectEvent"
-          },
-          {
-            "$ref": "#/definitions/required-ld-context"
-          }
-        ]
-      }
-    },
-    {
-      "if": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "enum": [
-              "AggregationEvent"
-            ]
-          }
-        }
-      },
-      "then": {
-        "allOf": [
-          {
-            "$ref": "#/definitions/AggregationEvent"
-          },
-          {
-            "$ref": "#/definitions/required-ld-context"
-          }
-        ]
-      }
-    },
-    {
-      "if": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "enum": [
-              "AssociationEvent"
-            ]
-          }
-        }
-      },
-      "then": {
-        "allOf": [
-          {
-            "$ref": "#/definitions/AssociationEvent"
-          },
-          {
-            "$ref": "#/definitions/required-ld-context"
-          }
-        ]
-      }
-    },
-    {
-      "if": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "enum": [
-              "TransformationEvent"
-            ]
-          }
-        }
-      },
-      "then": {
-        "allOf": [
-          {
-            "$ref": "#/definitions/TransformationEvent"
-          },
-          {
-            "$ref": "#/definitions/required-ld-context"
-          }
-        ]
-      }
-    },
-    {
-      "if": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "enum": [
-              "TransactionEvent"
-            ]
-          }
-        }
-      },
-      "then": {
-        "allOf": [
-          {
-            "$ref": "#/definitions/TransactionEvent"
-          },
-          {
-            "$ref": "#/definitions/required-ld-context"
-          }
-        ]
-      }
-    },
-    {
-      "if": {
-        "not": {
-          "type": "object",
-          "properties": {
-            "type": {
-              "enum": [
-                "AssociationEvent",
-                "ObjectEvent",
-                "AggregationEvent",
-                "TransactionEvent",
-                "TransformationEvent",
-                "EPCISQueryDocument",
-                "EPCISDocument"
-              ]
-            }
-          }
-        }
-      },
-      "then": {
-        "allOf": [
-          {
-            "$ref": "#/definitions/Extended-Event"
-          },
-          {
-            "$ref": "#/definitions/required-ld-context"
-          }
-        ]
-      }
-    }
-  ],
   "definitions": {
-    "epcisDocument": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "#/definitions/id"
-        },
-        "type": {
+    "EPCISDocument": {
+      "$ref": "#/definitions/EPCIS-Document"
+    },
+    "eventType": {
+      "anyOf": [
+        {
           "type": "string",
           "enum": [
-            "EPCISDocument"
+            "ObjectEvent",
+            "AggregationEvent",
+            "AssociationEvent",
+            "TransformationEvent",
+            "TransactionEvent"
           ]
         },
-        "@context": {
-          "$ref": "#/definitions/@context"
-        },
-        "schemaVersion": {
-          "$ref": "#/definitions/version"
-        },
-        "creationDate": {
-          "$ref": "#/definitions/time"
-        },
-        "instanceIdentifier": {
-          "type": "string"
-        },
-        "sender": {
-          "type": "string"
-        },
-        "receiver": {
-          "type": "string"
-        },
-        "epcisHeader": {
-          "$ref": "#/definitions/epcisHeader"
-        },
-        "epcisBody": {
-          "type": "object",
-          "properties": {
-            "eventList": {
-              "$ref": "#/definitions/eventList"
-            }
-          },
-          "required": [
-            "eventList"
-          ]
+        {
+          "type": "string",
+          "format": "uri"
         }
-      },
-      "required": [
-        "@context",
-        "type",
-        "schemaVersion",
-        "creationDate",
-        "epcisBody"
-      ],
-      "propertyNames": {
-        "anyOf": [
-          {
-            "type": "string",
-            "enum": [
-              "@context",
-              "id",
-              "type",
-              "schemaVersion",
-              "creationDate",
-              "instanceIdentifier",
-              "sender",
-              "receiver",
-              "epcisHeader",
-              "epcisBody"
-            ]
-          },
-          {
-            "$ref": "#/definitions/vocab-uri"
-          }
-        ]
-      }
+      ]
+    },
+    "EPCIS-Document": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/epcisDocument"
+        },
+        {
+          "$ref": "#/definitions/epcisQueryDocument"
+        }
+      ]
     },
     "uri": {
       "type": "string",
@@ -2265,6 +2040,81 @@
         ]
       }
     },
+    "epcisDocument": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "EPCISDocument"
+          ]
+        },
+        "@context": {
+          "$ref": "#/definitions/@context"
+        },
+        "schemaVersion": {
+          "$ref": "#/definitions/version"
+        },
+        "creationDate": {
+          "$ref": "#/definitions/time"
+        },
+        "instanceIdentifier": {
+          "type": "string"
+        },
+        "sender": {
+          "type": "string"
+        },
+        "receiver": {
+          "type": "string"
+        },
+        "epcisHeader": {
+          "$ref": "#/definitions/epcisHeader"
+        },
+        "epcisBody": {
+          "type": "object",
+          "properties": {
+            "eventList": {
+              "$ref": "#/definitions/eventList"
+            }
+          },
+          "required": [
+            "eventList"
+          ]
+        }
+      },
+      "required": [
+        "@context",
+        "type",
+        "schemaVersion",
+        "creationDate",
+        "epcisBody"
+      ],
+      "propertyNames": {
+        "anyOf": [
+          {
+            "type": "string",
+            "enum": [
+              "@context",
+              "id",
+              "type",
+              "schemaVersion",
+              "creationDate",
+              "instanceIdentifier",
+              "sender",
+              "receiver",
+              "epcisHeader",
+              "epcisBody"
+            ]
+          },
+          {
+            "$ref": "#/definitions/vocab-uri"
+          }
+        ]
+      }
+    },
     "epcisQueryDocument": {
       "type": "object",
       "properties": {
@@ -2320,5 +2170,186 @@
         "@context"
       ]
     }
-  }
+  },
+  "type": "object",
+  "required": [
+    "type"
+  ],
+  "properties": {
+    "type": {
+      "type": "string"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "enum": [
+              "EPCISDocument"
+            ]
+          }
+        }
+      },
+      "then": {
+        "$ref": "#/definitions/epcisDocument"
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "enum": [
+              "EPCISQueryDocument"
+            ]
+          }
+        }
+      },
+      "then": {
+        "$ref": "#/definitions/epcisQueryDocument"
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "enum": [
+              "ObjectEvent"
+            ]
+          }
+        }
+      },
+      "then": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/ObjectEvent"
+          },
+          {
+            "$ref": "#/definitions/required-ld-context"
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "enum": [
+              "AggregationEvent"
+            ]
+          }
+        }
+      },
+      "then": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/AggregationEvent"
+          },
+          {
+            "$ref": "#/definitions/required-ld-context"
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "enum": [
+              "AssociationEvent"
+            ]
+          }
+        }
+      },
+      "then": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/AssociationEvent"
+          },
+          {
+            "$ref": "#/definitions/required-ld-context"
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "enum": [
+              "TransformationEvent"
+            ]
+          }
+        }
+      },
+      "then": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/TransformationEvent"
+          },
+          {
+            "$ref": "#/definitions/required-ld-context"
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "enum": [
+              "TransactionEvent"
+            ]
+          }
+        }
+      },
+      "then": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/TransactionEvent"
+          },
+          {
+            "$ref": "#/definitions/required-ld-context"
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "not": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "AssociationEvent",
+                "ObjectEvent",
+                "AggregationEvent",
+                "TransactionEvent",
+                "TransformationEvent",
+                "EPCISQueryDocument",
+                "EPCISDocument"
+              ]
+            }
+          }
+        }
+      },
+      "then": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/Extended-Event"
+          },
+          {
+            "$ref": "#/definitions/required-ld-context"
+          }
+        ]
+      }
+    }
+  ]
 }
