@@ -3653,22 +3653,8 @@ components:
         name:
           type: string
         query:
-          $ref: '#/components/schemas/EPCISEventsQuery'
+          $ref: 'https://gs1.github.io/EPCIS/REST%20Bindings/JSON-Schema-Stub.json#/definitions/EPCIS-Query'
 
-    EPCISEventsQuery:
-      type: object
-      description: An EPCIS event query.
-      example:
-        {
-          "eventType": ["ObjectEvent"],
-          "EQ_bizStep": [
-              "shipping",
-              "receiving" ]
-        }
-      externalDocs:
-        url: query-schema.json
-      items:
-        type: object
     subscriptionID:
       description: The ID of a WebHook subscription.
       example: df5a33e3-5aa3-4403-ae01-99b83234e27b

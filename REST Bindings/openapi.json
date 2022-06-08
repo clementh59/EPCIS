@@ -6070,27 +6070,8 @@
             "type": "string"
           },
           "query": {
-            "$ref": "#/components/schemas/EPCISEventsQuery"
+            "$ref": "#/components/schemas/EPCIS-Query"
           }
-        }
-      },
-      "EPCISEventsQuery": {
-        "type": "object",
-        "description": "An EPCIS event query.",
-        "example": {
-          "eventType": [
-            "ObjectEvent"
-          ],
-          "EQ_bizStep": [
-            "shipping",
-            "receiving"
-          ]
-        },
-        "externalDocs": {
-          "url": "query-schema.json"
-        },
-        "items": {
-          "type": "object"
         }
       },
       "subscriptionID": {

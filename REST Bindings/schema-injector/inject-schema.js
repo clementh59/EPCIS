@@ -3,23 +3,23 @@
 import process from "process";
 import fs from "fs";
 import yaml from "js-yaml";
-import fetch from 'sync-fetch';
+import fetch from "sync-fetch";
 
 /*  Translation table so that certain JSON Schema definitions are translated
  *  to the Open API compatible definitions
  */
 const definitionTranslations = {
-  'EPCIS-Document-Event': 'EPCISEvent',
-  '@context': 'LDContext'
+  "EPCIS-Document-Event": "EPCISEvent",
+  "@context": "LDContext",
 };
 
 /* Definitions that will not be included for OpenAPI Compatibility */
-const definitionsBlackList = ['EPCIS-Document-Event', '@context'];
+const definitionsBlackList = ["EPCIS-Document-Event", "@context"];
 
 // The JSON Schema elements that are not to be included
-const schemaBlackList = ['propertyNames'];
+const schemaBlackList = ["propertyNames"];
 
-const EPCIS_JSON_SCHEMA = 'JSON-Schema-Stub.json';
+const EPCIS_JSON_SCHEMA = "JSON-Schema-Stub.json";
 
 function loadJson(fileName) {
   return JSON.parse(fs.readFileSync(fileName, "utf8"));
@@ -29,17 +29,22 @@ function loadYaml(fileName) {
   return yaml.load(fs.readFileSync(fileName, { encoding: "utf-8" }));
 }
 
-function inject(fileName, schemaFileName) {
+function inject(fileName, schemaFileName, schemaFileName2) {
   const spec = loadYaml(fileName);
-  const schemaJson = loadJson(schemaFileName);
+  const schemaFiles = [schemaFileName, schemaFileName2];
 
-  const definitions = schemaJson.definitions;
   const schemas = spec.components.schemas;
 
-  const definitionList = Object.keys(definitions);
-  for (const definition of definitionList) {
-    if (!definitionsBlackList.includes(definition)) {
-      schemas[definition] = definitions[definition];
+  for (const schemaFile of schemaFiles) {
+    const schemaJson = loadJson(schemaFile);
+
+    const definitions = schemaJson.definitions;
+
+    const definitionList = Object.keys(definitions);
+    for (const definition of definitionList) {
+      if (!definitionsBlackList.includes(definition)) {
+        schemas[definition] = definitions[definition];
+      }
     }
   }
 
@@ -80,11 +85,9 @@ function visit(obj, parentKeyName, parent) {
           obj[key] = `#/components/schemas/${getDefinitionName(obj[key])}`;
         }
       }
-    } 
-    else if (schemaBlackList.includes(key)) {
+    } else if (schemaBlackList.includes(key)) {
       delete obj[key];
-    }
-    else {
+    } else {
       visit(obj[key], key, obj);
     }
   }
@@ -107,12 +110,10 @@ function loadExample(uri) {
   if (response.ok) {
     if (response.headers.get("content-type").includes("json")) {
       example = response.json();
-    }
-    else if (response.headers.get("content-type").includes("xml")) {
+    } else if (response.headers.get("content-type").includes("xml")) {
       example = response.text();
     }
-  } 
-  else {
+  } else {
     console.error("Cannot load example: ", uri);
   }
 
@@ -122,8 +123,9 @@ function loadExample(uri) {
 function main() {
   const inputFile = process.argv[2];
   const schemaFile = process.argv[3];
+  const schemaFile2 = process.argv[3];
 
-  const finalSpec = inject(inputFile, schemaFile);
+  const finalSpec = inject(inputFile, schemaFile, schemaFile2);
 
   console.log(JSON.stringify(finalSpec, null, 2));
 }

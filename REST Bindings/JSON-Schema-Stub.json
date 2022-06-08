@@ -46,6 +46,9 @@
         },
         "action": {
             "type": "string"
+        },
+        "EPCIS-Query": {
+            "type": "object"
         }
     }
 }
